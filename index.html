@@ -22,34 +22,21 @@
       height: 100%;
     }
 
-    /* Scrolling images animation */
-    .scrolling-container {
-      overflow: hidden;
+    /* Slideshow styles */
+    .slideshow-container {
       width: 100%;
       height: 300px; /* Adjust height as needed */
+      position: relative;
+      overflow: hidden;
     }
-
-    .scrolling-images {
-      display: flex;
-      width: calc(200px * 8); /* Assuming 8 images, each 200px wide; adjust based on number of images */
-      animation: scroll 30s linear infinite; /* Adjust duration for speed */
-    }
-
-    .scrolling-images img {
-      width: 800px; /* Adjust width */
-      height: 300px; /* Match container height */
+    .slideshow-image {
+      width: 100%;
+      height: 100%;
       object-fit: cover;
-      margin-right: 1px; /* Space between images */
-    }
+      transition: opacity 1s ease-in-out; /* Smooth transition */
+    } 
 
-    @keyframes scroll {
-      0% {
-        transform: translateX(0);
-      }
-      100% {
-        transform: translateX(-50%); /* Since we duplicate images, move by 50% for seamless loop */
-      }
-    }
+  
     /* Video styles */
     .hero-video {
       width: 150%;
@@ -78,34 +65,14 @@
      </div>
     </div>
    </nav><!-- Hero Section -->
-   <section class="pt-24 pb-16 px-6 bg-gradient-to-br from-blue-50 to-indigo-100">
+   <section class="pt-24 pb-8 md:pb-16 px-6 bg-gradient-to-br from-blue-50 to-indigo-100">
     <div class="max-w-7xl mx-auto">
       
-     <div class="scrolling-container">
-      <div class="scrolling-images">
-       <!-- Replace with actual image URLs. Using placeholders for demonstration -->
-       <img src="satishart web design_1.jpg" alt="Election Caps">
-       <img src="satishart web design_2.jpg" alt="Campaign Stickers">
-       <img src="satishart web design_3.jpg" alt="Campaign Mufflers">
-       <img src="satishart web design_4.jpg" alt="Election Flags">
-       <img src="Satish Art Web Banner 2014_2 copy.jpg" alt="Campaign Sarees">
-       <img src="Satish Art Web Banner 2014_3 copy.jpg" alt="ID Badges">
-       <img src="sb2.jpg" alt="Campaign T-Shirts">
-       <img src="web design Banner.jpg" alt="Campaign Banner">
-       <!-- Duplicate for seamless loop -->
-       <img src="satishart web design_1.jpg" alt="Election Caps">
-       <img src="satishart web design_2.jpg" alt="Campaign Stickers">
-       <img src="satishart web design_3.jpg" alt="Campaign Mufflers">
-       <img src="satishart web design_4.jpg" alt="Election Flags">
-       <img src="Satish Art Web Banner 2014_2 copy.jpg" alt="Campaign Sarees">
-       <img src="Satish Art Web Banner 2014_3 copy.jpg" alt="ID Badges">
-       <img src="sb2.jpg" alt="Campaign T-Shirts">
-       <img src="web design Banner.jpg" alt="Campaign Banner">
-      </div>
-     </div>
+    <div class="slideshow-container">
+      <img id="slideshow-image" class="slideshow-image" src="satishart web design_1.jpg" alt="Slideshow Image">
     </div>
-    </div>
-    
+
+     
     <!-- About Us Section -->
    <section id="about" class="py-16 px-6 bg-gradient-to-br from-gray-50 to-blue-50">
     <div class="max-w-7xl mx-auto">
@@ -295,6 +262,30 @@
    </footer>
   </div>
   <script>
+
+    // Slideshow functionality
+    const images = [
+      "satishart web design_1.jpg",
+      "satishart web design_2.jpg",
+      "satishart web design_3.jpg",
+      "satishart web design_4.jpg",
+      "Satish Art Web Banner 2014_2 copy.jpg",
+      "Satish Art Web Banner 2014_3 copy.jpg",
+      "sb2.jpg",
+      "web design Banner.jpg"
+    ];
+    let currentIndex = 0;
+    const slideshowImage = document.getElementById('slideshow-image');
+    function changeImage() {
+      currentIndex = (currentIndex + 1) % images.length;
+      slideshowImage.src = images[currentIndex];
+    }
+    // Start the slideshow after 10 seconds, then every 10 seconds
+    setTimeout(() => {
+      changeImage();
+      setInterval(changeImage, 5000);
+    }, 5000);
+
     const defaultConfig = {
       background_color: "#f8fafc",
       surface_color: "#ffffff",
