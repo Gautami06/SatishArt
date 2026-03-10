@@ -456,9 +456,9 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
             <div><h4>Call Us Now</h4><span>+91 94223 24089</span></div>
           </a>
           <!-- EMAIL — opens mail app -->
-          <a class="ccard reveal" href="/cdn-cgi/l/email-protection#4a392b3e2339222b383e7b78790a2d272b232664292527" onclick="sendEmail();return false">
+          <a class="ccard reveal" href="mailto:satishart123@gmail.com" onclick="sendEmail();return false">
             <div class="ccard-ic em">📧</div>
-            <div><h4>Email Us</h4><span><span class="__cf_email__" data-cfemail="e79486938e948f869593d6d5d4a7808a868e8bc984888a">[email&#160;protected]</span></span></div>
+            <div><h4>Email Us</h4><span>satishart123@gmail.com</span></div>
           </a>
           <!-- LOCATION — opens Google Maps -->
           <a class="ccard reveal" href="#" onclick="openMap();return false">
@@ -476,7 +476,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
       <div class="reveal-r">
         <div class="map-box">
           <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3784.2!2d74.58!3d18.515!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc319d6ee6dd29b%3A0x9d93cab797b68227!2sSatish%20Art%2C%20Swami%20Samarth%20Road%2C%20Kedgaon%20Station%2C%20Maharashtra%20412203!5e0!3m2!1sen!2sin!4v1700000000000"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3785.5!2d74.5872!3d18.5094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc3e88d8dd6b607%3A0x5b1df42a3cd49068!2sKedgaon%2C%20Maharashtra%20412203!5e0!3m2!1sen!2sin!4v1700000000000"
             allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
           </iframe>
         </div>
@@ -512,7 +512,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
     <div class="foot-col">
       <h5>Contact</h5>
       <a href="#" onclick="callPhone();return false">📞 +91 94223 24089</a>
-      <a href="#" onclick="sendEmail();return false">📧 <span class="__cf_email__" data-cfemail="d0a3b1a4b9a3b8b1a2a4e1e2e390b7bdb1b9bcfeb3bfbd">[email&#160;protected]</span></a>
+      <a href="#" onclick="sendEmail();return false">📧 satishart123@gmail.com</a>
       <a href="#" onclick="openWA('Hello Satish Art!');return false">💬 WhatsApp Chat</a>
       <a href="#" onclick="openMap();return false">📍 Get Directions</a>
     </div>
@@ -543,7 +543,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
 </div>
 
 <!-- ═══ SCRIPTS ═══ -->
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
 /* ── LOADER ── */
 window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hidden'),2100)});
 
@@ -600,7 +600,7 @@ function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoVi
 /* ── CONTACT ACTIONS (fixes phone/email not working) ── */
 function callPhone(){window.location.href='tel:+919422324089'}
 function sendEmail(){window.location.href='mailto:satishart123@gmail.com'}
-function openMap(){window.open('https://maps.app.goo.gl/nutzpzVy2Wsut7iZ8','_blank')}
+function openMap(){window.open('https://www.google.com/maps/search/Swami+Samarth+Nagar+Kedgaon+Station+Daund+Pune+412203','_blank')}
 function openWA(msg){window.open('https://wa.me/919422324089?text='+encodeURIComponent(msg),'_blank')}
 
 /* ── 3D TILT CARDS ── */
@@ -659,4 +659,11 @@ function openModal(k){
   document.getElementById('mSpecs').innerHTML=p.specs.map(s=>`<div class="spec-item"><div class="spec-lbl">${s.l}</div><div class="spec-val">${s.v}</div></div>`).join('');
   document.getElementById('mWA').onclick=()=>openWA(`Hello Satish Art! I am interested in your ${p.title}. Please send me pricing and availability.`);
   document.getElementById('modalOverlay').classList.add('open');
-  document.body.
+  document.body.style.overflow='hidden';
+}
+function closeModal(){document.getElementById('modalOverlay').classList.remove('open');document.body.style.overflow=''}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
+</script>
+</body>
+</html>
