@@ -6,39 +6,32 @@
 <title>Satish Art – Premium Election Materials Since 1991</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <style>
 :root{
   --s:#FF6B00;--sl:#FF8C38;
-  --n:#0A1A0F;--nm:#0F2A17;--nd:#162F1E;
+  --n:#0A1A0F;--nm:#0F2A17;
   --g:#F2BF3C;
   --cr:#FFF8EE;--w:#fff;--tm:#3a4a3a;
-  --r:16px;--glow:0 0 40px rgba(255,107,0,0.4);
+  --glow:0 0 40px rgba(255,107,0,0.4);
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:'DM Sans',sans-serif;background:var(--n);color:var(--w);overflow-x:hidden;cursor:none}
+
+/* CURSOR */
 #cursor{position:fixed;width:12px;height:12px;background:var(--s);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .25s,height .25s,background .25s}
 #cursor-ring{position:fixed;width:38px;height:38px;border:1.5px solid rgba(255,107,0,0.55);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
 body.hovering #cursor{width:20px;height:20px;background:var(--g)}
 body.hovering #cursor-ring{width:54px;height:54px;border-color:var(--g)}
 
-/* LOADER */
-#loader{position:fixed;inset:0;z-index:99999;background:var(--n);display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .8s,visibility .8s}
-#loader.hidden{opacity:0;visibility:hidden;pointer-events:none}
-.ldr-logo{font-family:'Cormorant Garamond',serif;font-size:3rem;font-weight:800;color:var(--w);margin-bottom:32px;opacity:0;animation:fadeUp .6s .3s ease forwards}
-.ldr-logo span{color:var(--s)}
-.ldr-bar{width:220px;height:2px;background:rgba(255,255,255,.1);border-radius:2px;overflow:hidden}
-.ldr-fill{height:100%;background:linear-gradient(90deg,var(--s),var(--g));width:0;animation:fillBar 2s ease forwards;border-radius:2px}
-@keyframes fillBar{to{width:100%}}
-@keyframes fadeUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+/* CANVAS BG */
+#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.5;pointer-events:none}
 
-/* NAV */
+/* ── NAV ── */
 nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:0 5%;height:72px;display:flex;align-items:center;justify-content:space-between;transition:background .4s,box-shadow .4s}
-nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(255,255,255,.06)}
+nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow:0 1px 0 rgba(255,255,255,.07)}
 .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none;cursor:none}
-.nav-logo{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid var(--s);box-shadow:0 0 18px rgba(255,107,0,.45)}
-.nav-logo-fb{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--s),var(--g));display:none;align-items:center;justify-content:center;font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:800;color:var(--w);border:2px solid var(--s);flex-shrink:0}
+.nav-logo{width:46px;height:46px;border-radius:12px;object-fit:contain;border:2px solid var(--s);box-shadow:0 0 18px rgba(255,107,0,.45);background:#fff;padding:2px}
 .nt{font-family:'Cormorant Garamond',serif;font-size:1.2rem;font-weight:700;color:var(--w);line-height:1}
 .ns{font-size:.58rem;font-weight:500;letter-spacing:2.5px;text-transform:uppercase;color:var(--sl);margin-top:2px}
 .nav-links{display:flex;align-items:center;gap:4px}
@@ -49,31 +42,36 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;z-index:10}
 .hamburger span{width:26px;height:2px;background:var(--w);border-radius:2px;transition:.3s}
 
-/* THREE.JS BG */
-#bg-canvas{position:fixed;top:0;left:0;width:100%;height:100%;z-index:0;opacity:.6;pointer-events:none}
-
-/* HERO */
+/* ── HERO ── */
 .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:100px 5% 60px;overflow:hidden}
-.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 30% 60%,rgba(255,107,0,.10) 0%,transparent 55%),radial-gradient(ellipse at 75% 20%,rgba(242,191,60,.07) 0%,transparent 50%)}
-.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center}
-.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,0,.12);border:1px solid rgba(255,107,0,.28);color:var(--g);font-size:.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:24px;opacity:0;animation:fadeUp .7s 2s ease forwards}
+/* FULL SCREEN BG overlay */
+.hero-bg{position:absolute;inset:0;z-index:0;background:linear-gradient(135deg,rgba(10,26,15,.92) 0%,rgba(15,42,23,.85) 50%,rgba(10,26,15,.9) 100%)}
+.hero-bg-img{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=1600&q=80') center/cover no-repeat;z-index:-1;filter:saturate(0.4)}
+.hero-inner{max-width:1200px;margin:0 auto;width:100%;display:grid;grid-template-columns:1.1fr 0.9fr;gap:56px;align-items:center;position:relative;z-index:1}
+
+.hero-badge{display:inline-flex;align-items:center;gap:10px;background:rgba(255,107,0,.12);border:1px solid rgba(255,107,0,.28);color:var(--g);font-size:.7rem;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;padding:7px 18px;border-radius:50px;margin-bottom:24px;opacity:0;animation:fadeUp .7s .2s ease forwards}
 .hero-badge::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--s);animation:blink 1.5s infinite}
 @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:800;line-height:1.08;color:var(--w);margin-bottom:20px;opacity:0;animation:fadeUp .7s 2.1s ease forwards}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:clamp(2.8rem,5vw,5rem);font-weight:800;line-height:1.08;color:var(--w);margin-bottom:12px;opacity:0;animation:fadeUp .7s .35s ease forwards}
 .hero h1 em{font-style:normal;color:var(--s);display:block}
-.hero-sub{color:rgba(255,255,255,.6);font-size:.99rem;line-height:1.8;max-width:480px;margin-bottom:38px;font-weight:300;opacity:0;animation:fadeUp .7s 2.2s ease forwards}
-.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s 2.3s ease forwards}
-.btn-glow{background:var(--s);color:var(--w);padding:14px 30px;border-radius:50px;font-weight:600;font-size:.93rem;text-decoration:none;border:none;cursor:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,107,0,.4);display:inline-flex;align-items:center;gap:9px}
+/* TYPEWRITER */
+.typewriter-wrap{font-family:'Cormorant Garamond',serif;font-size:clamp(1.4rem,2.5vw,2.2rem);font-weight:700;color:var(--g);margin-bottom:20px;min-height:2.5rem;opacity:0;animation:fadeUp .7s .5s ease forwards}
+.typewriter-prefix{color:rgba(255,255,255,.6);font-size:1rem;font-weight:300;font-family:'DM Sans',sans-serif;display:block;margin-bottom:4px}
+#typewriter{border-right:2px solid var(--s);padding-right:4px;animation:cursorBlink .75s infinite}
+@keyframes cursorBlink{0%,100%{border-color:var(--s)}50%{border-color:transparent}}
+.hero-sub{color:rgba(255,255,255,.6);font-size:.99rem;line-height:1.8;max-width:480px;margin-bottom:38px;font-weight:300;opacity:0;animation:fadeUp .7s .6s ease forwards}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap;opacity:0;animation:fadeUp .7s .75s ease forwards}
+.btn-glow{background:var(--s);color:var(--w);padding:14px 30px;border-radius:50px;font-weight:600;font-size:.93rem;border:none;cursor:none;transition:all .3s;box-shadow:0 4px 20px rgba(255,107,0,.4);display:inline-flex;align-items:center;gap:9px;position:relative;overflow:hidden}
 .btn-glow:hover{transform:translateY(-3px);box-shadow:var(--glow)}
-.btn-outline{background:transparent;color:var(--w);padding:14px 30px;border-radius:50px;font-weight:500;font-size:.93rem;text-decoration:none;border:1px solid rgba(255,255,255,.25);transition:all .3s;display:inline-flex;align-items:center;gap:9px;cursor:none}
+.btn-outline{background:transparent;color:var(--w);padding:14px 30px;border-radius:50px;font-weight:500;font-size:.93rem;border:1px solid rgba(255,255,255,.25);transition:all .3s;display:inline-flex;align-items:center;gap:9px;cursor:none}
 .btn-outline:hover{border-color:var(--g);color:var(--g);transform:translateY(-2px)}
 
 /* HERO CARD */
-.hero-visual{position:relative;opacity:0;animation:fadeUp .8s 2.2s ease forwards}
-.hero-3d-card{background:linear-gradient(135deg,rgba(255,255,255,.07),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.1);border-radius:24px;padding:32px;backdrop-filter:blur(10px);transform-style:preserve-3d;position:relative;overflow:hidden}
-.hero-3d-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,107,0,.08),transparent,rgba(242,191,60,.05),transparent);animation:spinBg 8s linear infinite;pointer-events:none}
+.hero-visual{position:relative;opacity:0;animation:fadeUp .8s .5s ease forwards}
+.hero-3d-card{background:linear-gradient(135deg,rgba(255,255,255,.09),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:24px;padding:32px;backdrop-filter:blur(14px);transform-style:preserve-3d;position:relative;overflow:hidden}
+.hero-3d-card::before{content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;background:conic-gradient(from 0deg,transparent,rgba(255,107,0,.07),transparent,rgba(242,191,60,.04),transparent);animation:spinBg 8s linear infinite;pointer-events:none}
 @keyframes spinBg{to{transform:rotate(360deg)}}
-.hcard-logo{width:70px;height:70px;border-radius:50%;object-fit:cover;border:3px solid var(--s);margin-bottom:16px;box-shadow:0 0 28px rgba(255,107,0,.55);display:block;position:relative;z-index:1}
+.hcard-logo{width:80px;height:80px;border-radius:14px;object-fit:contain;border:2px solid var(--s);margin-bottom:16px;box-shadow:0 0 28px rgba(255,107,0,.55);display:block;position:relative;z-index:1;background:#fff;padding:4px}
 .hcard-name{font-family:'Cormorant Garamond',serif;font-size:1.65rem;font-weight:700;color:var(--w);margin-bottom:5px;position:relative;z-index:1}
 .hcard-tag{font-size:.75rem;color:rgba(255,255,255,.42);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:22px;position:relative;z-index:1}
 .hstats{display:grid;grid-template-columns:1fr 1fr;gap:10px;position:relative;z-index:1}
@@ -85,14 +83,22 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .fbadge:nth-child(2){animation-delay:.9s}.fbadge:nth-child(3){animation-delay:1.8s}
 .fbadge span{color:var(--g)}
 @keyframes flt{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.scroll-ind{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .7s 2.8s ease forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+
+.scroll-ind{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);z-index:1;display:flex;flex-direction:column;align-items:center;gap:8px;opacity:0;animation:fadeUp .7s 1.2s ease forwards}
 .scroll-line{width:1px;height:46px;background:linear-gradient(to bottom,transparent,var(--s));overflow:hidden;position:relative}
 .scroll-line::after{content:'';position:absolute;top:-100%;width:100%;height:100%;background:var(--g);animation:scrollD 1.8s ease-in-out infinite}
 @keyframes scrollD{0%{top:-100%}100%{top:200%}}
 .scroll-ind span{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.3)}
 
-/* SECTIONS */
-.sec{padding:96px 5%;position:relative;z-index:1}
+/* ── WAVY DIVIDERS ── */
+.wave-top{width:100%;overflow:hidden;line-height:0;margin-bottom:-2px}
+.wave-top svg{display:block;width:100%}
+.wave-bottom{width:100%;overflow:hidden;line-height:0;margin-top:-2px}
+.wave-bottom svg{display:block;width:100%}
+
+/* ── SECTIONS ── */
+.sec{padding:80px 5%;position:relative;z-index:1}
 .sec-inner{max-width:1200px;margin:0 auto}
 .sec-tag{display:inline-block;background:rgba(255,107,0,.1);color:var(--s);font-size:.67rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;padding:5px 16px;border-radius:50px;margin-bottom:14px;border:1px solid rgba(255,107,0,.2)}
 .sec-title{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.2vw,2.9rem);font-weight:800;line-height:1.15;color:var(--w);margin-bottom:14px}
@@ -101,39 +107,19 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .sec-sub.dark{color:var(--tm)}
 .divider{width:54px;height:3px;background:linear-gradient(90deg,var(--s),var(--g));border-radius:3px;margin:15px 0 26px}
 
-/* SLIDESHOW / ABOUT */
+/* ── ABOUT ── */
 #about{background:var(--cr)}
 .about-grid{display:grid;grid-template-columns:1fr 1fr;gap:68px;align-items:start;margin-top:52px}
-.about-text p{color:var(--tm);line-height:1.9;margin-bottom:14px;font-size:.96rem}
 .about-feats{display:flex;flex-direction:column;gap:12px;margin-top:24px}
 .afeat{display:flex;align-items:flex-start;gap:15px;padding:16px 18px;border-radius:14px;background:var(--w);border-left:3px solid var(--s);box-shadow:0 3px 16px rgba(0,0,0,.07);transition:transform .3s,box-shadow .3s;cursor:default}
 .afeat:hover{transform:translateX(6px);box-shadow:0 8px 28px rgba(0,0,0,.1)}
 .afeat-ic{font-size:1.35rem;flex-shrink:0;width:42px;height:42px;background:rgba(255,107,0,.08);border-radius:10px;display:flex;align-items:center;justify-content:center}
 .afeat h4{font-size:.88rem;font-weight:700;color:var(--n);margin-bottom:3px}
 .afeat p{font-size:.79rem;color:var(--tm);margin:0;line-height:1.55}
-
-/* SLIDESHOW */
-.slideshow{position:relative;border-radius:22px;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,.25)}
-.slide{display:none;position:relative}
-.slide.active{display:block}
-.slide img{width:100%;height:320px;object-fit:cover;display:block}
-.slide-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(10,26,15,.7),transparent)}
-.slide-caption{position:absolute;bottom:18px;left:20px;color:var(--w);font-size:.85rem;font-weight:600}
-.slide-dots{display:flex;justify-content:center;gap:8px;margin-top:14px}
-.sdot{width:8px;height:8px;border-radius:50%;background:rgba(255,107,0,.3);border:none;cursor:pointer;transition:all .25s;padding:0}
-.sdot.active{background:var(--s);width:22px;border-radius:4px}
-
-/* VIDEO SECTION */
-.video-wrap{border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3);margin-top:18px;background:rgba(0,0,0,.4);position:relative}
-.video-wrap video{width:100%;display:block;border-radius:18px;max-height:220px;object-fit:cover}
-.video-fb{display:none;flex-direction:column;align-items:center;justify-content:center;padding:36px;text-align:center;gap:10px;color:rgba(255,255,255,.45);font-size:.82rem}
-.video-fb .vplay{font-size:2.8rem;color:var(--s)}
-
-/* About right card */
 .about-right{display:flex;flex-direction:column;gap:16px}
 .about-main-card{background:linear-gradient(135deg,var(--n),var(--nm));border-radius:22px;padding:30px;position:relative;overflow:hidden}
 .about-main-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 80% 20%,rgba(255,107,0,.13),transparent 65%);pointer-events:none}
-.about-logo-big{width:82px;height:82px;border-radius:50%;object-fit:cover;border:3px solid var(--s);box-shadow:0 0 36px rgba(255,107,0,.45);margin-bottom:14px;position:relative;z-index:1}
+.about-logo-big{width:90px;height:90px;border-radius:16px;object-fit:contain;border:3px solid var(--s);box-shadow:0 0 36px rgba(255,107,0,.45);margin-bottom:14px;position:relative;z-index:1;background:#fff;padding:4px}
 .founded-num{font-family:'Cormorant Garamond',serif;font-size:3.8rem;font-weight:800;color:var(--s);line-height:1;text-shadow:var(--glow);position:relative;z-index:1}
 .founded-lbl{font-size:.68rem;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-top:3px;position:relative;z-index:1}
 .about-mini-row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
@@ -141,24 +127,32 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .amini:hover{border-color:rgba(255,107,0,.3);transform:translateY(-3px)}
 .amini .num{font-family:'Cormorant Garamond',serif;font-size:1.85rem;font-weight:700;color:var(--s)}
 .amini .lbl{font-size:.68rem;color:rgba(255,255,255,.38);letter-spacing:1px;text-transform:uppercase;margin-top:2px}
+.video-wrap{border-radius:18px;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,.3);margin-top:4px;background:rgba(0,0,0,.4);position:relative}
+.video-wrap video{width:100%;display:block;border-radius:18px;max-height:220px;object-fit:cover}
+.video-fb{display:none;flex-direction:column;align-items:center;justify-content:center;padding:36px;text-align:center;gap:10px;color:rgba(255,255,255,.45);font-size:.82rem}
+.video-fb .vplay{font-size:2.8rem;color:var(--s)}
 
-/* PRODUCTS */
+/* ── PRODUCTS ── */
 #products{background:var(--n)}
 .prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:20px;margin-top:50px}
-.prod-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:28px 24px;cursor:none;position:relative;overflow:hidden;transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s}
-.prod-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,.08),transparent);opacity:0;transition:opacity .3s;pointer-events:none}
-.prod-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--s),var(--g));transform:scaleX(0);transform-origin:left;transition:transform .4s;pointer-events:none}
+.prod-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:0;cursor:none;position:relative;overflow:hidden;transform-style:preserve-3d;transition:border-color .3s,box-shadow .3s}
+.prod-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,.08),transparent);opacity:0;transition:opacity .3s;pointer-events:none;z-index:1}
+.prod-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--s),var(--g));transform:scaleX(0);transform-origin:left;transition:transform .4s;pointer-events:none;z-index:2}
 .prod-card:hover{border-color:rgba(255,107,0,.28);box-shadow:0 18px 50px rgba(0,0,0,.4),0 0 28px rgba(255,107,0,.09)}
 .prod-card:hover::before{opacity:1}
 .prod-card:hover::after{transform:scaleX(1)}
-.prod-emoji{font-size:2.4rem;margin-bottom:15px;display:block;transition:transform .3s}
-.prod-card:hover .prod-emoji{transform:scale(1.15) rotateZ(-5deg)}
-.prod-card h3{font-size:1rem;font-weight:700;color:var(--w);margin-bottom:9px}
-.prod-card p{font-size:.81rem;color:rgba(255,255,255,.48);line-height:1.65;margin-bottom:18px}
+.prod-img-wrap{width:100%;height:175px;overflow:hidden;border-radius:20px 20px 0 0;position:relative}
+.prod-img-wrap img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;display:block}
+.prod-card:hover .prod-img-wrap img{transform:scale(1.1)}
+.prod-img-overlay{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,rgba(10,26,15,.85));pointer-events:none}
+.prod-body{padding:18px 22px 22px}
+.prod-emoji{font-size:1.8rem;margin-bottom:8px;display:block}
+.prod-body h3{font-size:1rem;font-weight:700;color:var(--w);margin-bottom:8px}
+.prod-body p{font-size:.81rem;color:rgba(255,255,255,.48);line-height:1.6;margin-bottom:14px}
 .prod-link{display:inline-flex;align-items:center;gap:6px;font-size:.79rem;font-weight:600;color:var(--s);cursor:none;transition:gap .2s;background:none;border:none;padding:0}
 .prod-card:hover .prod-link{gap:12px}
 
-/* MODAL */
+/* ── MODAL ── */
 .modal-overlay{display:none;position:fixed;inset:0;z-index:2000;background:rgba(4,8,20,.88);backdrop-filter:blur(14px);align-items:center;justify-content:center;padding:20px}
 .modal-overlay.open{display:flex}
 .modal-box{background:linear-gradient(135deg,#0d1f10,#112618);border:1px solid rgba(255,255,255,.1);border-radius:24px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;animation:mPop .35s cubic-bezier(.34,1.56,.64,1)}
@@ -181,8 +175,8 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .m-call{flex:1;padding:12px 18px;border-radius:50px;background:rgba(255,255,255,.07);color:var(--w);font-weight:600;font-size:.88rem;border:1px solid rgba(255,255,255,.14);cursor:none;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;transition:all .25s}
 .m-call:hover{background:var(--s);border-color:var(--s);transform:translateY(-2px)}
 
-/* WHY */
-#why{background:linear-gradient(180deg,var(--nm) 0%,var(--n) 100%)}
+/* ── WHY ── */
+#why{background:var(--n)}
 .why-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(252px,1fr));gap:20px;margin-top:50px}
 .why-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:28px 24px;transition:all .35s;position:relative;overflow:hidden}
 .why-card::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,107,0,.07),transparent);opacity:0;transition:opacity .35s;pointer-events:none}
@@ -192,15 +186,15 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .why-card h3{font-size:.97rem;font-weight:700;color:var(--w);margin-bottom:9px}
 .why-card p{font-size:.83rem;color:rgba(255,255,255,.47);line-height:1.72}
 
-/* CTA BANNER */
+/* ── CTA ── */
 .cta-banner{background:linear-gradient(135deg,var(--s) 0%,#cc4a00 50%,#a83d00 100%);padding:76px 5%;text-align:center;position:relative;overflow:hidden;z-index:1}
 .cta-banner::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at center,rgba(255,255,255,.07),transparent 70%);pointer-events:none}
 .cta-banner h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.9rem);color:var(--w);font-weight:800;margin-bottom:10px;position:relative}
 .cta-banner p{color:rgba(255,255,255,.82);font-size:.98rem;margin-bottom:30px;position:relative}
-.btn-white{background:var(--w);color:var(--s);padding:14px 36px;border-radius:50px;font-weight:700;font-size:.98rem;text-decoration:none;display:inline-flex;align-items:center;gap:9px;transition:all .3s;box-shadow:0 8px 28px rgba(0,0,0,.24);cursor:none;border:none}
+.btn-white{background:var(--w);color:var(--s);padding:14px 36px;border-radius:50px;font-weight:700;font-size:.98rem;display:inline-flex;align-items:center;gap:9px;transition:all .3s;box-shadow:0 8px 28px rgba(0,0,0,.24);cursor:none;border:none}
 .btn-white:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 14px 38px rgba(0,0,0,.32)}
 
-/* CONTACT */
+/* ── CONTACT ── */
 #contact{background:var(--cr)}
 .contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;margin-top:50px;align-items:start}
 .contact-cards{display:flex;flex-direction:column;gap:13px}
@@ -224,10 +218,10 @@ nav.scrolled{background:rgba(10,26,15,.96);backdrop-filter:blur(20px);box-shadow
 .map-addr{background:var(--n);border-radius:14px;padding:15px 18px;margin-top:12px;color:rgba(255,255,255,.7);font-size:.86rem;line-height:1.7;border-left:3px solid var(--s)}
 .map-addr strong{color:var(--w);display:block;margin-bottom:3px}
 
-/* FOOTER */
+/* ── FOOTER ── */
 footer{background:var(--n);padding:50px 5% 28px;position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.06)}
 .footer-grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:40px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,.06)}
-.foot-logo{width:52px;height:52px;border-radius:50%;object-fit:cover;border:2px solid var(--s);margin-bottom:12px}
+.foot-logo{width:56px;height:56px;border-radius:12px;object-fit:contain;border:2px solid var(--s);margin-bottom:12px;background:#fff;padding:3px}
 .foot-name{font-family:'Cormorant Garamond',serif;font-size:1.55rem;font-weight:800;color:var(--w);margin-bottom:7px}
 .foot-name span{color:var(--s)}
 .foot-desc{font-size:.83rem;color:rgba(255,255,255,.36);line-height:1.7;max-width:250px}
@@ -236,21 +230,27 @@ footer{background:var(--n);padding:50px 5% 28px;position:relative;z-index:1;bord
 .foot-col a:hover{color:var(--s)}
 .footer-btm{max-width:1200px;margin:0 auto;padding-top:22px;text-align:center;color:rgba(255,255,255,.27);font-size:.79rem}
 
-/* WA FLOAT */
+/* ── WA FLOAT ── */
 .wa-float{position:fixed;bottom:26px;right:26px;z-index:1500;width:58px;height:58px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;font-size:1.75rem;text-decoration:none;box-shadow:0 7px 26px rgba(37,211,102,.5);transition:all .3s;animation:waPulse 2.5s infinite;cursor:none}
-.wa-float:hover{transform:scale(1.14);box-shadow:0 11px 38px rgba(37,211,102,.7)}
+.wa-float:hover{transform:scale(1.14)}
 @keyframes waPulse{0%,100%{box-shadow:0 7px 26px rgba(37,211,102,.5)}50%{box-shadow:0 7px 26px rgba(37,211,102,.5),0 0 0 10px rgba(37,211,102,.13)}}
 
-/* REVEAL */
+/* ── CONFETTI ── */
+.confetti-piece{position:fixed;width:10px;height:10px;top:-20px;border-radius:2px;animation:confettiFall linear forwards;pointer-events:none;z-index:9999}
+@keyframes confettiFall{0%{transform:translateY(0) rotate(0deg);opacity:1}100%{transform:translateY(110vh) rotate(720deg);opacity:0}}
+
+/* ── REVEAL ── */
 .reveal{opacity:0;transform:translateY(34px);transition:opacity .7s ease,transform .7s ease}
 .reveal.vis{opacity:1;transform:none}
 .reveal-l{opacity:0;transform:translateX(-34px);transition:opacity .7s ease,transform .7s ease}
 .reveal-l.vis{opacity:1;transform:none}
 .reveal-r{opacity:0;transform:translateX(34px);transition:opacity .7s ease,transform .7s ease}
 .reveal-r.vis{opacity:1;transform:none}
+.reveal-scale{opacity:0;transform:scale(.92);transition:opacity .6s ease,transform .6s ease}
+.reveal-scale.vis{opacity:1;transform:scale(1)}
 
-/* GRAIN */
-body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
+/* ── GRAIN ── */
+body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.022;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");background-size:200px}
 
 @media(max-width:900px){
   .hero-inner,.about-grid,.contact-grid,.footer-grid{grid-template-columns:1fr;gap:36px}
@@ -258,7 +258,7 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
   .nav-links.open{display:flex;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:rgba(10,26,15,.98);padding:16px 5% 24px;border-top:1px solid rgba(255,255,255,.07)}
   .hamburger{display:flex}
   .fbadges{display:none}
-  body,#cursor,#cursor-ring{cursor:auto}
+  body{cursor:auto}
   #cursor,#cursor-ring{display:none}
   .spec-grid{grid-template-columns:1fr}
   .modal-body{padding:18px}
@@ -268,56 +268,46 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
 </head>
 <body>
 
-<!-- LOADER -->
-<div id="loader">
-  <div class="ldr-logo">Satish <span>Art</span></div>
-  <div class="ldr-bar"><div class="ldr-fill"></div></div>
-</div>
-
-<!-- CURSOR -->
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
-
-<!-- THREE.JS CANVAS -->
 <canvas id="bg-canvas"></canvas>
 
-<!-- ═══ NAV ═══ -->
+<!-- NAV -->
 <nav id="navbar">
-  <a href="#" class="nav-brand" onclick="scrollTo('hero');return false">
-    <img class="nav-logo" id="navLogo"
-         src="https://gautami06.github.io/Satish%20art.jpg" alt="Satish Art Logo"
-         onerror="this.style.display='none';document.getElementById('navFb').style.display='flex'">
-    <div class="nav-logo-fb" id="navFb">SA</div>
-    <div><div class="nt">Satish Art</div><div class="ns">Election Materials</div></div>
+  <a href="#" class="nav-brand" onclick="navGo('hero');return false">
+    <img class="nav-logo" src="data:image/jpeg;base64,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" alt="Satish Art Logo">
+    <div><div class="nt">Satish Art</div><div class="ns">Since 1991</div></div>
   </a>
   <div class="nav-links" id="navLinks">
-    <a href="#about"   onclick="navGo('about');  return false">About</a>
-    <a href="#products"onclick="navGo('products');return false">Products</a>
-    <a href="#why"     onclick="navGo('why');    return false">Why Us</a>
-    <a href="#contact" onclick="navGo('contact'); return false" class="nav-cta">Get Quote</a>
+    <a href="#about"    onclick="navGo('about');   return false">About</a>
+    <a href="#products" onclick="navGo('products');return false">Products</a>
+    <a href="#why"      onclick="navGo('why');     return false">Why Us</a>
+    <a href="#contact"  onclick="navGo('contact'); return false" class="nav-cta">Get Quote</a>
   </div>
-  <div class="hamburger" id="ham" onclick="toggleMenu()">
-    <span></span><span></span><span></span>
-  </div>
+  <div class="hamburger" id="ham" onclick="toggleMenu()"><span></span><span></span><span></span></div>
 </nav>
 
-<!-- ═══ HERO ═══ -->
+<!-- HERO -->
 <section class="hero" id="hero">
+  <div class="hero-bg-img"></div>
+  <div class="hero-bg"></div>
   <div class="hero-inner">
     <div>
       <div class="hero-badge">✦ Trusted Campaign Partner Since 1991</div>
-      <h1>Maharashtra's Premier<em>Election Materials</em>Specialists</h1>
-      <p class="hero-sub">From caps to sarees, flags to banners — we craft premium campaign materials that connect your message with millions of voters across india.</p>
+      <h1>Maharashtra's Premier<em>Election Materials</em></h1>
+      <div class="typewriter-wrap">
+        <span class="typewriter-prefix">We specialize in</span>
+        <span id="typewriter"></span>
+      </div>
+      <p class="hero-sub">From caps to sarees, flags to banners — we craft premium campaign materials that connect your message with millions of voters across Maharashtra.</p>
       <div class="hero-btns">
         <button class="btn-glow" onclick="navGo('products')">🛍️ Explore Products</button>
-        <button class="btn-outline" onclick="openWA('Hello Satish Art! I want a free quote for election materials.')">💬 WhatsApp Quote</button>
+        <button class="btn-outline" onclick="fireConfetti();openWA('Hello Satish Art! I want a free quote for election materials.')">💬 WhatsApp Quote</button>
       </div>
     </div>
     <div class="hero-visual">
       <div class="hero-3d-card" id="heroCard">
-        <img class="hcard-logo"
-             src="https://gautami06.github.io/Satish%20art.jpg" alt="Satish Art"
-             onerror="this.style.display='none'">
+        <img class="hcard-logo" src="data:image/jpeg;base64,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" alt="Satish Art">
         <div class="hcard-name">Satish Art</div>
         <div class="hcard-tag">Your Campaign Partner</div>
         <div class="hstats">
@@ -337,40 +327,33 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
   <div class="scroll-ind"><span>Scroll</span><div class="scroll-line"></div></div>
 </section>
 
-<!-- ═══ ABOUT ═══ -->
+<!-- WAVE between hero and about -->
+<div class="wave-top" style="background:var(--cr)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px"><path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#0A1A0F"/></svg>
+</div>
+
+<!-- ABOUT -->
 <section class="sec" id="about">
   <div class="sec-inner">
     <div class="about-grid">
-      <!-- LEFT: text + features -->
       <div class="reveal-l">
         <div class="sec-tag">Our Story</div>
         <h2 class="sec-title dark">Three Decades of<br>Campaign Excellence</h2>
         <div class="divider"></div>
-        <p class="sec-sub dark" style="max-width:100%">Founded in 1991, Satish Art has been the trusted backbone of election campaigns across India. We specialize in producing high-quality promotional materials that connect political parties with their voters.</p>
-        <p style="color:var(--tm);line-height:1.9;font-size:.96rem;margin-top:12px">Our vision was simple — affordable, durable, and visually powerful campaign materials. Today we serve clients from local panchayat to national parties.</p>
-        <!-- SLIDESHOW from original website -->
-        <div class="slideshow" style="margin-top:24px">
-          <div class="slide active">
-            <img src="https://gautami06.github.io/satishart%20web%20design_1.jpg" alt="Satish Art Campaign Materials" onerror="this.parentElement.style.display='none'">
-            <div class="slide-overlay"></div>
-            <div class="slide-caption">Premium Campaign Materials</div>
-          </div>
-        </div>
+        <p class="sec-sub dark" style="max-width:100%">Founded in 1991, Satish Art has been the trusted backbone of election campaigns across Maharashtra. We produce high-quality promotional materials that connect political parties with their voters.</p>
+        <p style="color:var(--tm);line-height:1.9;font-size:.96rem;margin-top:12px">From local panchayat to state-level campaigns — we understand what it takes to make an impression. Reliable, affordable, and always on time.</p>
         <div class="about-feats" style="margin-top:20px">
           <div class="afeat reveal"><div class="afeat-ic">🏆</div><div><h4>Premium Quality Materials</h4><p>Weatherproof, UV-resistant prints built to last the entire campaign season.</p></div></div>
-          <div class="afeat reveal"><div class="afeat-ic">🚚</div><div><h4>Pan-Maharshtra Express Delivery</h4><p>Fast, tracked shipping anywhere in Maharashtra. Never miss a campaign deadline.</p></div></div>
+          <div class="afeat reveal"><div class="afeat-ic">🚚</div><div><h4>Pan-Maharashtra Express Delivery</h4><p>Fast, tracked shipping anywhere in Maharashtra. Never miss a deadline.</p></div></div>
           <div class="afeat reveal"><div class="afeat-ic">🎨</div><div><h4>In-House Design Team</h4><p>Custom designs crafted to resonate with your voters and regional culture.</p></div></div>
         </div>
       </div>
-
-      <!-- RIGHT: logo card + video + stats -->
       <div class="about-right reveal-r">
         <div class="about-main-card">
-          <img src="https://gautami06.github.io/Satish%20art.jpg" alt="Satish Art" class="about-logo-big" onerror="this.style.display='none'">
+          <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIAMgAtAMBIgACEQEDEQH/xAAyAAEAAwEBAQEAAAAAAAAAAAAAAwQFAgYBBwEBAAMBAQAAAAAAAAAAAAAAAAIDBAEF/9oADAMBAAIQAxAAAAL1QADnMNWrj8xdegzL1fZ+a0cJX2fHp7qMnWRBEAAAxsQ9nDk6mOUEF7Hnd1bxdDb2eOuv8mZC72ZCJ7Oe40LuZqU2yiq8ADwcHofPGv6Pxvs8M/mXqZ8bsrQz9D1pRDT4Q+O/XdmrTHaoQQlb0sbZ5G0KdAAFfwn6H44zfa+K9PR3Tp3IMd2DoZ+h7NkRzf5CzHBTrmhkWZAspbONs03Whm2AAMnW+H57sZvcXseJPnl2+a0KF73Lq8nPHcv2Qv8ANDvAGzjbNN1oZtgAAHm8D3Phj20uZpeZZ565BP7FsPzvq3Hw74lQnhuZVJz1sobONs1W2hm2AAAPG+yyDM9D4/2OGeN39+ejZENnjdSwIX2YZ4fN115Pn30cDZxtmM7QzbAAAHPQ8F7DGuZ+9Q2quiyJz924PnffNV75z9pqtw8aPLMzZytW+m0M+oAAACnh+o8tFs52rmx0Q88TbMfEvPdmOtNVtQnxNFxxtd19CrT2IWAAAAMfY4K2VdhirD0fNfPteuaxx3Lincpcls61PrNrtiEwAAAAKdbTz+xznH3bk6p20ZPstiM6/wB+1ISj9B5j00eXBVeAAAAAoX4O8wvupJPuS2COLHvRypyWr8nDK109dkwqvAAAAAVDivydfAWQc1gsyBbAAB//xAAC/9oADAMBAAIAAwAAACEAAQZIkgMAAAAxO2M/325UAACCpcH3y5qkAABQFEHKob38AABBcOXP/wB9/AAAAsEjy2g+/AAAAA4r99fV/AAAAAbB4r0S2AAAAAHcGJ+DXAAAAAUndq2YgAAAAAA341rF9AAAAAAB2yjQbAAAAAAe8g8ccAAA/8QAAv/aAAwDAQACAAMAAAAQ88wtxeS488880ewZssNM/wDPPCULK/8A/aWfzzxlPmqKi7+vzzzgqVkF7/8Ar8888ZVFRVyWr8888oK4/dg/r8888sDWggO1p88888c95scgh88888oL/uX9y888888G/ik4T888888o4Ae38888888+cAA9g888/8QAMxEAAQMDAAcHAgYDAAAAAAAAAQIDBAAFEQYSEyAhIlEQFDE0UnFyYWIVIzJBQoGRobH/2gAIAQIBAT8A7XH2WwdZYFOXZocG2XXD9Emlz706fybcUjqqkNulKSU4OBmlIUnGd69X2VBkllttP6QQo1ovcX57skSFBRABApmLHW+2lTaSCrBoW2GPBvFfh8X0V+HxvRSrdE8VI/yanogoQEs/rzx3dLmPLvgdUk1oY5q3JxPqbqN5hr5dhIHEmpFyabylHMqg3OmHKjqJqdBajRkkElRUASd3SFjbWt7hko5h/VaLual4Y+4EVG8w18qefQynKj7Ci5KmrIQMI/c1HgMtYJGsrqey8+WT8xuvth1lxs+CkkVbMx7ywDw1XsVGP57R+6ghcyUQokJHE022htISkYHQdt58sn5jeuzXdb5rAYBcSsVCILsc9cU6w6w4XWeIPiKYmNu8M4V0NaW3R6Eu2JaWQS+FL+IpB1kJPUZq8+WT8xvaWsYcjPgfaTVnXtG4K+qU/wDOx+E27zJ5VdRV4S7Km3EOnW7rHCEkdTzVaXxIt0R0HOs0nNXnyyfmN7SNjbWxw4yUEKFaLubSDbz0AFPSmmRzHJ6ClXCQ5nZN/wB1o4x3uPcpDyQTIeXViVIhw8eKWnFNrT7Grm6h2EhaTkFY3pDQdYdbP8kkVou4pq3IGeZt1QqLCU+dq9nHiBUwpYgyCgAYbVirFH2FsYTjBIyaishq4TmSOV7DgH+jUsLYU4xnl1sjfsTKUzZTKhyl/XA9xQwBgVck60N1PUVHRqMNJ6JFSgEOMv8ApOFH6GpzwffWtI5RwB37eEonocPAEAE+1B5r1ipLrK2VI2iRkU5c2EDCcqNK77OOMardSW22YezxhYc4/XfZKEuJKwSkeOKL0Tq4KDsL99oabmW9vwZPuaF4jehVT5rMlsBKCFA+J3weA3TwVjc//8QAMxEAAgEDAgMFBgUFAAAAAAAAAQIDAAQFERIGICEiMUFRchAjNGFxkRMUFTI1MFJUgaH/2gAIAQMBAT8A9oUmhCx8RSWbN3K5+imkxV+/7bdqurO4tSomXaWGo5oYFddSaxVlazXYSRNRsJAriy2gssO8lvEqOHGjUMxkB3TtQzuVHddSfev17Lf5kn3psvk5iN0zuax36gzlp9QhXoDy2rd4rFttyFv17yR/yuOP4KT1j2IjuwVVJJ7gBVpw7MyiS5YRp36HvqS7xdgCsEYdx41YZGa7u2DaBQuoHIKgOkgq1YrdW7eUi1xx/BSeoVisRdZKXbGNEH7nPcKkfE4OPZEBJNp1Y1fZe6u2O5iF8h7MJ8WfQeUHQg0rabHHgQRXGfbwR+bpWYnXB4y3tLddGdNS3makkeVi7sST3k+3CfFn0HmiO6L6CuLXLcMq/oNWWYscpaR2OTGjqAI5qymAurEl097CequKwtklybneuoEeg+pphtYjyOlYT4s+g81qf3LXET7uE0+RA+3sx2eu7P3bH8SI96NVsLaZEltEEf4p3Mp+VZCJorydSNO2dKwnxZ9B5oG0kFZt9eFZB/bNWM4fvb8bwNkXi7UcTgrEe/nMj1l5hbPaR27FQi6irkWmQVIm7MrRhkbz1rFwSQZCSNx1CHmU6EGkW3nx7RT9Yvx1LD/VZ3iNmJtrTRI16DSo2eWdN7EksNdaysm+8fr0UAU8rmztpVPbibbqKtWS5SG600faVbnvrhkw91tOjapRJJ1NWY1uovUKuH3zyt5saswZVmgHUsuq/UVZQflraOJj2j1I57qKa4tJYIlLOw7IFPh8mh0a0l+1WeJyazI/5V+nn0qPhq413XEqxjxFF8XjV0j7cmmmtW0ss98Jd2sbR9Plzs9xGN8DbZB1U0MrntNGeI1LeZyQH3qCp7TKzk77gEHw1o4S6J6utY6wuLaUl2BQju/qeGvJ/8QAOxAAAQIDBAUKBQMEAwAAAAAAAQIDAAQREBIhMQUTIEFRIjAyMzRSYXFykRQjQmKBU6GxFUOCoiRAg//aAAgBAQABPwLbenJdnprHlDmm+UNWjCu+EqCkgjIiy8P+gpaUCqiBDulWhg0kuK8IX/Vpndq0+0I0Nvde9ob0bKI/tlXnGQoKAQVoGbg94MxLj+4I/qDA4mDpNG5BhGkSpaRczPN1ELKjkqkfDMqNVgrP3GHZvULKENJFIOkXzuTDc0vUBShU3oM1X6P9oLjRzZ/eLzH6A94vMfoD3i8x+gPeLzH6A94C2Qa6ge8fHK7kfHq7kMuaxF6m0/plhGDYvmH9JTT310HARohy9LKT3VfzbPj5/wCLE9kT6+ZblVqzwhpAbQEjamWiy+tHA2aGco+pHeT/ABbpActB8LE9kT69tEupXSwj5EumqiBC9ILVgyj/ACMSZWWQVqqdrTjGKHh5GyUc1cy0r7oNmkByGzYnsifXsVhLalZ4R8phNVECFTjq8Gk3R3jGrFaqN48TZKdSNqbZ10u4jwwgihpYwvWMNL4psnh8j82J7In124qyhDaUi8fcwqaJwYH+ZgN43lG8ridiT6kbelWNVNK4Kxs0S5elSnuqsmhWXXYnsifXYAVeULWhjA4r3IEEOOmrp8k7htSfUjb0wxrJa+BiizQzlHlo7yf4sdFWnB4WJ7In1x0jDjmq5CMXT/rCGwnHMnM7cn1I21JCklJ3iJhosvLbO4xJuauZaV91m4+UHMwOxp9RhCrgvcATDKeTePSViTzEn1I5jTjFFoeG/A2Mr1jLa+KYGcOiji/OE9kT6zF2BhsLSlMtfpsSfUjmJ1jXyziN+6zRLl6Vu902TYpML84T2RPrswi5HnY/QsONbwisINUjytk+pHM6UY1M0rgrERoZyjq0cRZPj5/4hPZE+u0KIgXVQhrljhDC9ZOTPCl2GuhThbJ9SOZ0yxfYDgzTEk5q5ppXjZpEcpB8IT2RPr2W3CG3FH6Uxo5A1aV7yaxS668Putk+pHMrQFoUk7xDqFMvKTvSYaXrGm18UxpAchswnsifXbegJWfCJk3JJY7yqQyS2E0igMyoH6kAw60UHwsk+pHNabYuuJdH1Ropy/KU7pieHyPzCeyJ9cFVISgqg6prpqA8BnHxCv7bX5VE6oqMs2c8zY6shTCx5Q2pLqKGHWy2qntEn1I5qeY10stO/MRoZdHHG+IiaFZdcV/4aPXCEChUo0AzMF1bmDfIRx3mEtpTu/MDMQ4b86r7U0se6ryMNuFJChDiA+zhnuiT6gc2pHwulE90n+YdFW3B4QhNZVNTQBRqYJ15rk2OiLUZxL8pTq+KrF9BUMGrYiSXmmEpArzemWatJeTmgw2rWNJVxRC0FUqhNcNYa7C1XW1nwiWFGU2yxopxHjEmOWT4c44gONrSd4iQqGdWc0KpCxRn/wBDsTRoyYbFG0+Vq+RMoV3oRcl2SpRyxMSbhdZvneTzly5MqO5Y/cRMiiT69id6CR90DKxDS1+AidlmxKnGhGIMB9yaSgK6Kd3GJPqRzihWnhE/yUJ9UX/CL0VPAxqyvNIhLBOZgIabFVUHnCp4ZMpvHjugpW4q86q8eG6FVl3b30mJIhTCSOdn6XE4b4q3wVF9r7vaNc33VmPiFfSz7mC5MK+sJ8o1YzNSfG0gEUMSKQiXAHHnX9Vd+ZlCESqzSmMCXYIBpHwrPCPhWeEfCs8IW1Kope3wtEqg0OcFMoAk8coS1LKTeGUMFso+Xlzs0AUpqknHduhBWXOSSpN04kZQw2pSmb9aaj94SF3Wb964FuV98Icvci5XV3zWsSl75mPJrhE23UIITjfEPch++DSqeEIbU2lpRqDVX7xLNEh4ryUqsSabrRFPrV/O1//EACgQAAECBAYCAwEBAQAAAAAAAAEAERAhMVEgQWFxgaEwkcHw8bFA0f/aAAgBAQABPyHGPquRUuuxsRFnAI5ThEef+A0BBmZIqdPEoOHTMHNj/wBWay5oS2gGAVOu6VU200RpHgXzymewGK+OU7qQB1gOUddGc6ogg0skqQDhBChCFkGovZUQO5r9sv2y/ZL9kggHRqWk9rQe0YZMxPpFygT8DwlFNmfXEwZuEO68AmWEypnJ7RQKYjj0NoWO7ot5Q91idywDlTgmWzRPMDUqnMfWSmsMucTICsDQsH2MlVDmBEO6wEAradqkT2V/ZW8ITu3SHeOIeen2IhCqDDTwfeDgG0PdRBI3uigoAFVOu9+BOveAOwcbuAy8Nab0Zw2Gxh3SJADlEZ8LoMAvfoQk+soAADDD2Djz0D8Zw+jhg1EOHdL0hEIDAEzkP/U8kTVNTj7Bxg9cEBG6zZMLa4DzJGqIcNyQsDWEhEIO2DUBEDl/YvB2D4GYS9wIEguFptKgmlrhSmSBrZYHVJ36ODsHwAZKH3BEEEg5LUxx7QqIJd1AEqyKNkii4kDITKZpE49EewfDJY+aW8+OIMOuC7qOsCyaN0VTzVNanMcKlcI9R7B8LeJvStxKeUarcy91hzlhigjKp26NogyOY9g+GlGYe0ccv4UIJlLmhC7qLMprJQhM6TGlAAkmWS9QriKhh2j4mXSBjuEwZ204+y90hSVKJznoEVdN5HvqcJqSzgRCYm5RcDcJx6Gq67XildIOQJ3rnIWw2KcGKuTQlUoMyU6lzXTKFxap2ZCgP1DCEfmoeqMzJFyCNR43tST2TXY0A5xVgIgSHtupjI+yLUOAuLRbPl6RJ+4QlmZfxs8+AhhvsFJIlt2QAAYR0DNbwn7gQ4ITqZORjlggp46cTSeqr4p4GD32QE0bDEWykhQMAAOJubPgNMvIGlm0cq/zByiUNk4WWahRBZNipIRO2GHDMLqTfPkmmZLIqoy5NsUCUUW3sKoOwTqNclWm5kmkEZCBgF/RHIcEny1MyrFQ8OgHNADTiMrANVVYCwp8u3ROgAKQOgOFTmd5Zc5kt0SCQAOxlJC7KQ6+sr6zBmRYCTAIZHQ7Car1tZosYZWdECkneR68rRMBL1akK1EsDJdB+XmG9AjlZ81A1oc6ccIRDidf6dDfyvzZPKUTRMwKP1UxDgC5CDdmeVAjFmU9sT//xAAnEAEAAgAEBgMBAQEBAAAAAAABABEhMUFREDBhcYHwIJGhseHRQP/aAAgBAQABPxD5LUZptIbfBFa+Rr2LbxLcFxLN4AE54V2tUEye2LpVgN9LP7xjYpcQzfMVybgmNKCgUAE/EInuFdoeKbZwGe8CVXMTOfJUJZQU6JpB0l/irwIVvjBQOwqFfNQ1L4Cf0ALOlcUgJ/JYz9UT8YAKCB1EEdTjcokGqUN5fMrBVaeBmax/Tj1e/D0u3IsAKZAWyup6uMOASzb8hdze9ZcLfaTXGr9KPD0u3yKDtoxix0JigH3VysfWeEJKRqa+WW+eG9pQb7KAvWWZwv4Pel2+GcuOgZx4bbJmj59WPaJddGFvsjE34qwAZfOleBa9nEhaogR3IKIkxTt8cKeHS/4el24KArKo4avKE3a20Ex5zIOHjAR2zS/o5fMOcfK58LicTcFXOA9LtHSUEJ0S2AzhLJd532kEqDY/9oAAAyDmcprnf14cF+OFx8C5el2mNebUG7LZAGxTqxaS141Odw5HRmFMzDSHc0YtrQdgkaU6Ov7J0dRLFHoQdidNWIfct4bczXH/AODh4FEwAlI2MAtzb3rhF22HpNoYlLNSIAFJRuQRLHiWrJtNyoIg8vmNRf8Anw2qUjLNN+GYpg7koujYnpdoKIjTEcm9o/8AI2e46MD4h+MCAatTMWNEAfX+HM5T6kgsNw89w3uh89LtxwHyIlYHfOir3C4cyozLv65qWGZp+XM4Nv4rvlzNUdrDDTlO/D6Z6Xb4CiIxfxEai1M1P3Qo1anYjHzOB5bE7KhsqIeUyTEy3Zyel24KEbaK9iVVE65wiab1p/yLdgDCcCc74YOcVf4vCtryzDmWE2zxZXbeel2iFC3IINLpZGBoHEvBHCUGj15BGKScBRZwaQIt0gFy1Ukt7jbafq8oibQqmz+Rpuz6Gb8v5wBtr/lOsQZZK9QmLXPPEHqs6+CajCO7wRSZm+IjOCDW4wEpg6QxlJDbCUnKQcIxJiXByoTiTZARdKe/JgABwYKyCxk8/oHDry5mjG7hCzAJUJAdnV5a4U+5T6wvtoy6LADSMoCCgKA44mU0PMvWt35cAQ1EiZ+qE2yPysfLC2KfvHnNv+Iu0/Ap9yOn44tQCjvOEPShu2H2LbS9cxRmgL21JVtFzyPgr2xBQ9ES1iw/uPBLPoE60AgeDjMddBBBQAcwFvkf6RiS1i/UNT6ZZl9fBFVKQ2Z6iR4jKFTvoS9qmmCmg3kdkiVa+E1Q69Ieb9TJpyg78GJm7zm3dkOS56MIVSvOm/bDrqSgCgBwHGmYwz6KnNAXAE3K0IhotdSNS5hcsLawZg2gN4wbpUDFn7lGK3OKsXLbMlW7FYgvSy0gfW0bSxoweYkTdU8y5acUz8yME8/XPIGq4TbDcoNOcLpZ13QjsVHuWzcJRfDHHceXAogAAvoQYh3gsBhEqXKs5Fawd7QSjugZRnJYjEZlRPbEFVSVfL//2Q==" alt="Satish Art" class="about-logo-big">
           <div class="founded-num">1991</div>
           <div class="founded-lbl">Year Established</div>
         </div>
-        <!-- VIDEO from original website -->
         <div class="video-wrap">
           <video controls playsinline preload="metadata">
             <source src="https://gautami06.github.io/SatishArt/VID-20251106-WA0011.mp4" type="video/mp4">
@@ -379,13 +362,12 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
           <div class="video-fb" id="videoFb">
             <div class="vplay">▶</div>
             <span>Campaign Showcase Video</span>
-            <small style="opacity:.6">Upload video to GitHub to display here</small>
           </div>
         </div>
         <div class="about-mini-row">
           <div class="amini"><div class="num" data-c="33" data-s="+">33+</div><div class="lbl">Years Active</div></div>
           <div class="amini"><div class="num" data-c="500" data-s="+">500+</div><div class="lbl">Clients Served</div></div>
-          <div class="amini"><div class="num">Pan</div><div class="lbl">Maharashtra Delivery</div></div>
+          <div class="amini"><div class="num">Pan</div><div class="lbl">MH Delivery</div></div>
           <div class="amini"><div class="num">8+</div><div class="lbl">Products</div></div>
         </div>
       </div>
@@ -393,7 +375,12 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
   </div>
 </section>
 
-<!-- ═══ PRODUCTS ═══ -->
+<!-- WAVE between about and products -->
+<div class="wave-top" style="background:var(--n)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px"><path d="M0,40 C480,0 960,80 1440,40 L1440,80 L0,80 Z" fill="#FFF8EE"/></svg>
+</div>
+
+<!-- PRODUCTS -->
 <section class="sec" id="products">
   <div class="sec-inner">
     <div class="reveal" style="text-align:center">
@@ -403,20 +390,49 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
       <p class="sec-sub" style="margin:0 auto;text-align:center">Everything your campaign needs — designed, printed and delivered with excellence.</p>
     </div>
     <div class="prod-grid">
-      <div class="prod-card reveal" onclick="openModal('caps')"><span class="prod-emoji">🧢</span><h3>Campaign Caps</h3><p>Custom printed caps with party logos and slogans. Cotton, polyester, all sizes.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('stickers')"><span class="prod-emoji">🏷️</span><h3>Stickers</h3><p>Vibrant, weather-resistant vinyl stickers. UV-laminated for outdoor use.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('mufflers')"><span class="prod-emoji">🧣</span><h3>Mufflers</h3><p>Branded fleece mufflers for winter rallies. Comfortable and crowd-pleasing.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('flags')"><span class="prod-emoji">🚩</span><h3>Flags</h3><p>Durable rally flags in all sizes. UV-resistant dye sublimation print.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('sarees')"><span class="prod-emoji">👗</span><h3>Sarees</h3><p>Custom party-colored sarees. Culturally impactful and widely appreciated.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('badges')"><span class="prod-emoji">📛</span><h3>Badges</h3><p>Professional ID badges for campaign workers in metal, plastic, or fabric.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('banners')"><span class="prod-emoji">📋</span><h3>Banners &amp; LD Foam</h3><p>Large format flex banners and LD foam boards for maximum visibility.</p><button class="prod-link">View Details →</button></div>
-      <div class="prod-card reveal" onclick="openModal('tshirts')"><span class="prod-emoji">👕</span><h3>T-Shirts</h3><p>High-quality cotton or dri-fit shirts for volunteers and mass distribution.</p><button class="prod-link">View Details →</button></div>
+      <div class="prod-card reveal-scale" onclick="openModal('caps')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1588850561407-ed78c282e89b?w=400&q=80" alt="Caps" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">🧢</span><h3>Campaign Caps</h3><p>Custom printed caps with party logos and slogans. Cotton, polyester, all sizes.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('stickers')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80" alt="Stickers" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">🏷️</span><h3>Stickers</h3><p>Vibrant, weather-resistant vinyl stickers. UV-laminated for outdoor use.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('mufflers')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1520903920243-00d872a2d1c9?w=400&q=80" alt="Mufflers" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">🧣</span><h3>Mufflers</h3><p>Branded fleece mufflers for winter rallies. Comfortable and crowd-pleasing.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('flags')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1578916171728-46686eac8d58?w=400&q=80" alt="Flags" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">🚩</span><h3>Flags</h3><p>Durable rally flags in all sizes. UV-resistant dye sublimation print.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('sarees')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1610030469983-98e550d6193c?w=400&q=80" alt="Sarees" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">👗</span><h3>Sarees</h3><p>Custom party-colored sarees. Culturally impactful and widely appreciated.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('badges')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1614680376593-902f74cf0d41?w=400&q=80" alt="Badges" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">📛</span><h3>Badges</h3><p>Professional ID badges for campaign workers in metal, plastic, or fabric.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('banners')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1586892477838-2b96e85e0f96?w=400&q=80" alt="Banners" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">📋</span><h3>Banners &amp; LD Foam</h3><p>Large format flex banners and LD foam boards for maximum visibility.</p><button class="prod-link">View Details →</button></div>
+      </div>
+      <div class="prod-card reveal-scale" onclick="openModal('tshirts')">
+        <div class="prod-img-wrap"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80" alt="T-Shirts" onerror="this.parentElement.style.background='#1a3a1a'"><div class="prod-img-overlay"></div></div>
+        <div class="prod-body"><span class="prod-emoji">👕</span><h3>T-Shirts</h3><p>High-quality cotton or dri-fit shirts for volunteers and mass distribution.</p><button class="prod-link">View Details →</button></div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- ═══ WHY US ═══ -->
-<section class="sec" id="why">
+<!-- WAVE between products and why -->
+<div class="wave-top" style="background:var(--nm)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px"><path d="M0,20 C360,70 1080,10 1440,50 L1440,80 L0,80 Z" fill="#0A1A0F"/></svg>
+</div>
+
+<!-- WHY US -->
+<section class="sec" id="why" style="background:var(--nm)">
   <div class="sec-inner">
     <div class="reveal" style="text-align:center">
       <div class="sec-tag" style="background:rgba(255,107,0,.15);color:var(--g)">Why Choose Us</div>
@@ -424,24 +440,34 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
       <div class="divider" style="margin:14px auto 10px"></div>
     </div>
     <div class="why-grid">
-      <div class="why-card reveal"><span class="why-icon">⚡</span><h3>Lightning Fast Turnaround</h3><p>Rush orders accepted. We meet even the tightest campaign deadlines with precision.</p></div>
+      <div class="why-card reveal"><span class="why-icon">⚡</span><h3>Lightning Fast Turnaround</h3><p>Rush orders accepted. We meet even the tightest campaign deadlines every time.</p></div>
       <div class="why-card reveal"><span class="why-icon">✨</span><h3>Premium Quality Guaranteed</h3><p>Materials from the best suppliers — built to last the full campaign season.</p></div>
-      <div class="why-card reveal"><span class="why-icon">💰</span><h3>Unbeatable Bulk Pricing</h3><p>Competitive rates with substantial bulk discounts. Maximum value for every rupee.</p></div>
-      <div class="why-card reveal"><span class="why-icon">🎨</span><h3>Custom Design Studio</h3><p>Our designers align every material with your party's identity and regional culture.</p></div>
-      <div class="why-card reveal"><span class="why-icon">🤝</span><h3>All Campaign Levels</h3><p>From gram panchayat to national parties — we understand every level.</p></div>
+      <div class="why-card reveal"><span class="why-icon">💰</span><h3>Unbeatable Bulk Pricing</h3><p>Competitive rates with bulk discounts. Maximum value for every rupee spent.</p></div>
+      <div class="why-card reveal"><span class="why-icon">🎨</span><h3>Custom Design Studio</h3><p>Our designers align every material with your party identity and regional culture.</p></div>
+      <div class="why-card reveal"><span class="why-icon">🤝</span><h3>All Campaign Levels</h3><p>From gram panchayat to state elections — we understand every level.</p></div>
       <div class="why-card reveal"><span class="why-icon">📦</span><h3>Pan-Maharashtra Delivery</h3><p>Tracked, insured shipping anywhere in Maharashtra. On time, every time.</p></div>
     </div>
   </div>
 </section>
 
-<!-- ═══ CTA ═══ -->
+<!-- WAVE before CTA -->
+<div class="wave-top" style="background:var(--s)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px"><path d="M0,50 C480,10 960,70 1440,30 L1440,80 L0,80 Z" fill="#0F2A17"/></svg>
+</div>
+
+<!-- CTA -->
 <div class="cta-banner">
   <h2>Ready to Win Your Campaign?</h2>
   <p>Get a free quote and consultation today — no commitment required.</p>
-  <button class="btn-white" onclick="openWA('Hello Satish Art! I want a free consultation for election materials.')">💬 Start on WhatsApp</button>
+  <button class="btn-white" onclick="fireConfetti();openWA('Hello Satish Art! I want a free consultation for election materials.')">💬 Start on WhatsApp</button>
 </div>
 
-<!-- ═══ CONTACT ═══ -->
+<!-- WAVE before contact -->
+<div class="wave-top" style="background:var(--cr)">
+  <svg viewBox="0 0 1440 80" preserveAspectRatio="none" style="height:80px"><path d="M0,30 C360,80 1080,0 1440,50 L1440,80 L0,80 Z" fill="#a83d00"/></svg>
+</div>
+
+<!-- CONTACT -->
 <section class="sec" id="contact">
   <div class="sec-inner">
     <div class="contact-grid">
@@ -450,42 +476,35 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
         <h2 class="sec-title dark reveal">Let's Build Your<br>Campaign Together</h2>
         <div class="divider reveal"></div>
         <div class="contact-cards">
-          <!-- PHONE — opens dialer -->
-          <a class="ccard reveal" href="tel:+919422324089" onclick="callPhone();return false">
+          <a class="ccard reveal" href="tel:+919422063554" onclick="callPhone();return false">
             <div class="ccard-ic ph">📞</div>
             <div><h4>Call Us Now</h4><span>+91 94223 24089</span></div>
           </a>
-          <!-- EMAIL — opens mail app -->
           <a class="ccard reveal" href="mailto:satishart123@gmail.com" onclick="sendEmail();return false">
             <div class="ccard-ic em">📧</div>
             <div><h4>Email Us</h4><span>satishart123@gmail.com</span></div>
           </a>
-          <!-- LOCATION — opens Google Maps -->
           <a class="ccard reveal" href="#" onclick="openMap();return false">
             <div class="ccard-ic mp">📍</div>
-            <div><h4>Visit Us / Get Directions</h4><span>Kedgaon Station, Daund, Pune</span></div>
+            <div><h4>Visit Us / Get Directions</h4><span>Satish Art, Swami Samarth Road, Kedgaon</span></div>
           </a>
-          <!-- WHATSAPP -->
-          <a class="wa-ccard reveal" href="#" onclick="openWA('Hello Satish Art! I want to enquire about election materials.');return false">
+          <a class="wa-ccard reveal" href="#" onclick="fireConfetti();openWA('Hello Satish Art! I want to enquire about election materials.');return false">
             <div class="waic">💬</div>
             <div><h4>WhatsApp Us</h4><span>Instant quotes &amp; quick orders</span></div>
           </a>
         </div>
       </div>
-      <!-- MAP -->
       <div class="reveal-r">
         <div class="map-box">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3785.5!2d74.5872!3d18.5094!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc3e88d8dd6b607%3A0x5b1df42a3cd49068!2sKedgaon%2C%20Maharashtra%20412203!5e0!3m2!1sen!2sin!4v1700000000000"
-            allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
+          <iframe src="https://maps.google.com/maps?q=Satish+Art+Swami+Samarth+Road+Kedgaon+Station+Maharashtra+412203&output=embed&z=18" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>
         <div class="map-addr">
-          <strong>📍 Satish Art — Main Office</strong>
-          Swami Samarth Nagar, A/P Kedgaon Station,<br>
-          Tal-Daund, Dist-Pune — 412203, Maharashtra
+          <strong>📍 Satish Art</strong>
+          Swami Samarth Road, Kedgaon Station,<br>
+          Dist. Pune — 412203, Maharashtra<br>
+          <a href="https://maps.app.goo.gl/nutzpzVy2Wsut7iZ8" target="_blank" style="color:var(--s);font-weight:600;font-size:.82rem;text-decoration:none;display:inline-block;margin-top:6px">🔗 Open exact location →</a>
         </div>
-        <button onclick="openMap()" style="margin-top:12px;width:100%;padding:12px;border-radius:12px;background:var(--s);color:#fff;border:none;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px" onmouseover="this.style.background='#FF8340'" onmouseout="this.style.background='var(--s)'">
+        <button onclick="openMap()" style="margin-top:12px;width:100%;padding:12px;border-radius:12px;background:var(--s);color:#fff;border:none;font-weight:600;font-size:.88rem;cursor:pointer;transition:all .25s;display:flex;align-items:center;justify-content:center;gap:8px" onmouseover="this.style.background='#FF8C38'" onmouseout="this.style.background='#FF6B00'">
           🗺️ Open in Google Maps
         </button>
       </div>
@@ -493,11 +512,11 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
   </div>
 </section>
 
-<!-- ═══ FOOTER ═══ -->
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div>
-      <img src="https://gautami06.github.io/Satish%20art.jpg" class="foot-logo" alt="Satish Art" onerror="this.style.display='none'">
+      <img src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAAYGBgYHBgcICAcKCwoLCg8ODAwODxYQERAREBYiFRkVFRkVIh4kHhweJB42KiYmKjY+NDI0PkxERExfWl98fKcBBgYGBgcGBwgIBwoLCgsKDw4MDA4PFhAREBEQFiIVGRUVGRUiHiQeHB4kHjYqJiYqNj40MjQ+TERETF9aX3x8p//CABEIAMgAtAMBIgACEQEDEQH/xAAyAAEAAwEBAQEAAAAAAAAAAAAAAwQFAgYBBwEBAAMBAQAAAAAAAAAAAAAAAAIDBAEF/9oADAMBAAIQAxAAAAL1QADnMNWrj8xdegzL1fZ+a0cJX2fHp7qMnWRBEAAAxsQ9nDk6mOUEF7Hnd1bxdDb2eOuv8mZC72ZCJ7Oe40LuZqU2yiq8ADwcHofPGv6Pxvs8M/mXqZ8bsrQz9D1pRDT4Q+O/XdmrTHaoQQlb0sbZ5G0KdAAFfwn6H44zfa+K9PR3Tp3IMd2DoZ+h7NkRzf5CzHBTrmhkWZAspbONs03Whm2AAMnW+H57sZvcXseJPnl2+a0KF73Lq8nPHcv2Qv8ANDvAGzjbNN1oZtgAAHm8D3Phj20uZpeZZ565BP7FsPzvq3Hw74lQnhuZVJz1sobONs1W2hm2AAAPG+yyDM9D4/2OGeN39+ejZENnjdSwIX2YZ4fN115Pn30cDZxtmM7QzbAAAHPQ8F7DGuZ+9Q2quiyJz924PnffNV75z9pqtw8aPLMzZytW+m0M+oAAACnh+o8tFs52rmx0Q88TbMfEvPdmOtNVtQnxNFxxtd19CrT2IWAAAAMfY4K2VdhirD0fNfPteuaxx3Lincpcls61PrNrtiEwAAAAKdbTz+xznH3bk6p20ZPstiM6/wB+1ISj9B5j00eXBVeAAAAAoX4O8wvupJPuS2COLHvRypyWr8nDK109dkwqvAAAAAVDivydfAWQc1gsyBbAAB//xAAC/9oADAMBAAIAAwAAACEAAQZIkgMAAAAxO2M/325UAACCpcH3y5qkAABQFEHKob38AABBcOXP/wB9/AAAAsEjy2g+/AAAAA4r99fV/AAAAAbB4r0S2AAAAAHcGJ+DXAAAAAUndq2YgAAAAAA341rF9AAAAAAB2yjQbAAAAAAe8g8ccAAA/8QAAv/aAAwDAQACAAMAAAAQ88wtxeS488880ewZssNM/wDPPCULK/8A/aWfzzxlPmqKi7+vzzzgqVkF7/8Ar8888ZVFRVyWr8888oK4/dg/r8888sDWggO1p88888c95scgh88888oL/uX9y888888G/ik4T888888o4Ae38888888+cAA9g888/8QAMxEAAQMDAAcHAgYDAAAAAAAAAQIDBAAFEQYSEyAhIlEQFDE0UnFyYWIVIzJBQoGRobH/2gAIAQIBAT8A7XH2WwdZYFOXZocG2XXD9Emlz706fybcUjqqkNulKSU4OBmlIUnGd69X2VBkllttP6QQo1ovcX57skSFBRABApmLHW+2lTaSCrBoW2GPBvFfh8X0V+HxvRSrdE8VI/yanogoQEs/rzx3dLmPLvgdUk1oY5q3JxPqbqN5hr5dhIHEmpFyabylHMqg3OmHKjqJqdBajRkkElRUASd3SFjbWt7hko5h/VaLual4Y+4EVG8w18qefQynKj7Ci5KmrIQMI/c1HgMtYJGsrqey8+WT8xuvth1lxs+CkkVbMx7ywDw1XsVGP57R+6ghcyUQokJHE022htISkYHQdt58sn5jeuzXdb5rAYBcSsVCILsc9cU6w6w4XWeIPiKYmNu8M4V0NaW3R6Eu2JaWQS+FL+IpB1kJPUZq8+WT8xvaWsYcjPgfaTVnXtG4K+qU/wDOx+E27zJ5VdRV4S7Km3EOnW7rHCEkdTzVaXxIt0R0HOs0nNXnyyfmN7SNjbWxw4yUEKFaLubSDbz0AFPSmmRzHJ6ClXCQ5nZN/wB1o4x3uPcpDyQTIeXViVIhw8eKWnFNrT7Grm6h2EhaTkFY3pDQdYdbP8kkVou4pq3IGeZt1QqLCU+dq9nHiBUwpYgyCgAYbVirFH2FsYTjBIyaishq4TmSOV7DgH+jUsLYU4xnl1sjfsTKUzZTKhyl/XA9xQwBgVck60N1PUVHRqMNJ6JFSgEOMv8ApOFH6GpzwffWtI5RwB37eEonocPAEAE+1B5r1ipLrK2VI2iRkU5c2EDCcqNK77OOMardSW22YezxhYc4/XfZKEuJKwSkeOKL0Tq4KDsL99oabmW9vwZPuaF4jehVT5rMlsBKCFA+J3weA3TwVjc//8QAMxEAAgEDAgMFBgUFAAAAAAAAAQIDAAQFERIGICEiMUFRchAjNGFxkRMUFTI1MFJUgaH/2gAIAQMBAT8A9oUmhCx8RSWbN3K5+imkxV+/7bdqurO4tSomXaWGo5oYFddSaxVlazXYSRNRsJAriy2gssO8lvEqOHGjUMxkB3TtQzuVHddSfev17Lf5kn3psvk5iN0zuax36gzlp9QhXoDy2rd4rFttyFv17yR/yuOP4KT1j2IjuwVVJJ7gBVpw7MyiS5YRp36HvqS7xdgCsEYdx41YZGa7u2DaBQuoHIKgOkgq1YrdW7eUi1xx/BSeoVisRdZKXbGNEH7nPcKkfE4OPZEBJNp1Y1fZe6u2O5iF8h7MJ8WfQeUHQg0rabHHgQRXGfbwR+bpWYnXB4y3tLddGdNS3makkeVi7sST3k+3CfFn0HmiO6L6CuLXLcMq/oNWWYscpaR2OTGjqAI5qymAurEl097CequKwtklybneuoEeg+pphtYjyOlYT4s+g81qf3LXET7uE0+RA+3sx2eu7P3bH8SI96NVsLaZEltEEf4p3Mp+VZCJorydSNO2dKwnxZ9B5oG0kFZt9eFZB/bNWM4fvb8bwNkXi7UcTgrEe/nMj1l5hbPaR27FQi6irkWmQVIm7MrRhkbz1rFwSQZCSNx1CHmU6EGkW3nx7RT9Yvx1LD/VZ3iNmJtrTRI16DSo2eWdN7EksNdaysm+8fr0UAU8rmztpVPbibbqKtWS5SG600faVbnvrhkw91tOjapRJJ1NWY1uovUKuH3zyt5saswZVmgHUsuq/UVZQflraOJj2j1I57qKa4tJYIlLOw7IFPh8mh0a0l+1WeJyazI/5V+nn0qPhq413XEqxjxFF8XjV0j7cmmmtW0ss98Jd2sbR9Plzs9xGN8DbZB1U0MrntNGeI1LeZyQH3qCp7TKzk77gEHw1o4S6J6utY6wuLaUl2BQju/qeGvJ/8QAOxAAAQIDBAUKBQMEAwAAAAAAAQIDAAQREBIhMQUTIEFRIjAyMzRSYXFykRQjQmKBU6GxFUOCoiRAg//aAAgBAQABPwLbenJdnprHlDmm+UNWjCu+EqCkgjIiy8P+gpaUCqiBDulWhg0kuK8IX/Vpndq0+0I0Nvde9ob0bKI/tlXnGQoKAQVoGbg94MxLj+4I/qDA4mDpNG5BhGkSpaRczPN1ELKjkqkfDMqNVgrP3GHZvULKENJFIOkXzuTDc0vUBShU3oM1X6P9oLjRzZ/eLzH6A94vMfoD3i8x+gPeLzH6A94C2Qa6ge8fHK7kfHq7kMuaxF6m0/plhGDYvmH9JTT310HARohy9LKT3VfzbPj5/wCLE9kT6+ZblVqzwhpAbQEjamWiy+tHA2aGco+pHeT/ABbpActB8LE9kT69tEupXSwj5EumqiBC9ILVgyj/ACMSZWWQVqqdrTjGKHh5GyUc1cy0r7oNmkByGzYnsifXsVhLalZ4R8phNVECFTjq8Gk3R3jGrFaqN48TZKdSNqbZ10u4jwwgihpYwvWMNL4psnh8j82J7In124qyhDaUi8fcwqaJwYH+ZgN43lG8ridiT6kbelWNVNK4Kxs0S5elSnuqsmhWXXYnsifXYAVeULWhjA4r3IEEOOmrp8k7htSfUjb0wxrJa+BiizQzlHlo7yf4sdFWnB4WJ7In1x0jDjmq5CMXT/rCGwnHMnM7cn1I21JCklJ3iJhosvLbO4xJuauZaV91m4+UHMwOxp9RhCrgvcATDKeTePSViTzEn1I5jTjFFoeG/A2Mr1jLa+KYGcOiji/OE9kT6zF2BhsLSlMtfpsSfUjmJ1jXyziN+6zRLl6Vu902TYpML84T2RPrswi5HnY/QsONbwisINUjytk+pHM6UY1M0rgrERoZyjq0cRZPj5/4hPZE+u0KIgXVQhrljhDC9ZOTPCl2GuhThbJ9SOZ0yxfYDgzTEk5q5ppXjZpEcpB8IT2RPr2W3CG3FH6Uxo5A1aV7yaxS668Putk+pHMrQFoUk7xDqFMvKTvSYaXrGm18UxpAchswnsifXbegJWfCJk3JJY7yqQyS2E0igMyoH6kAw60UHwsk+pHNabYuuJdH1Ropy/KU7pieHyPzCeyJ9cFVISgqg6prpqA8BnHxCv7bX5VE6oqMs2c8zY6shTCx5Q2pLqKGHWy2qntEn1I5qeY10stO/MRoZdHHG+IiaFZdcV/4aPXCEChUo0AzMF1bmDfIRx3mEtpTu/MDMQ4b86r7U0se6ryMNuFJChDiA+zhnuiT6gc2pHwulE90n+YdFW3B4QhNZVNTQBRqYJ15rk2OiLUZxL8pTq+KrF9BUMGrYiSXmmEpArzemWatJeTmgw2rWNJVxRC0FUqhNcNYa7C1XW1nwiWFGU2yxopxHjEmOWT4c44gONrSd4iQqGdWc0KpCxRn/wBDsTRoyYbFG0+Vq+RMoV3oRcl2SpRyxMSbhdZvneTzly5MqO5Y/cRMiiT69id6CR90DKxDS1+AidlmxKnGhGIMB9yaSgK6Kd3GJPqRzihWnhE/yUJ9UX/CL0VPAxqyvNIhLBOZgIabFVUHnCp4ZMpvHjugpW4q86q8eG6FVl3b30mJIhTCSOdn6XE4b4q3wVF9r7vaNc33VmPiFfSz7mC5MK+sJ8o1YzNSfG0gEUMSKQiXAHHnX9Vd+ZlCESqzSmMCXYIBpHwrPCPhWeEfCs8IW1Kope3wtEqg0OcFMoAk8coS1LKTeGUMFso+Xlzs0AUpqknHduhBWXOSSpN04kZQw2pSmb9aaj94SF3Wb964FuV98Icvci5XV3zWsSl75mPJrhE23UIITjfEPch++DSqeEIbU2lpRqDVX7xLNEh4ryUqsSabrRFPrV/O1//EACgQAAECBAYCAwEBAQAAAAAAAAEAERAhMVEgQWFxgaEwkcHw8bFA0f/aAAgBAQABPyHGPquRUuuxsRFnAI5ThEef+A0BBmZIqdPEoOHTMHNj/wBWay5oS2gGAVOu6VU200RpHgXzymewGK+OU7qQB1gOUddGc6ogg0skqQDhBChCFkGovZUQO5r9sv2y/ZL9kggHRqWk9rQe0YZMxPpFygT8DwlFNmfXEwZuEO68AmWEypnJ7RQKYjj0NoWO7ot5Q91idywDlTgmWzRPMDUqnMfWSmsMucTICsDQsH2MlVDmBEO6wEAradqkT2V/ZW8ITu3SHeOIeen2IhCqDDTwfeDgG0PdRBI3uigoAFVOu9+BOveAOwcbuAy8Nab0Zw2Gxh3SJADlEZ8LoMAvfoQk+soAADDD2Djz0D8Zw+jhg1EOHdL0hEIDAEzkP/U8kTVNTj7Bxg9cEBG6zZMLa4DzJGqIcNyQsDWEhEIO2DUBEDl/YvB2D4GYS9wIEguFptKgmlrhSmSBrZYHVJ36ODsHwAZKH3BEEEg5LUxx7QqIJd1AEqyKNkii4kDITKZpE49EewfDJY+aW8+OIMOuC7qOsCyaN0VTzVNanMcKlcI9R7B8LeJvStxKeUarcy91hzlhigjKp26NogyOY9g+GlGYe0ccv4UIJlLmhC7qLMprJQhM6TGlAAkmWS9QriKhh2j4mXSBjuEwZ204+y90hSVKJznoEVdN5HvqcJqSzgRCYm5RcDcJx6Gq67XildIOQJ3rnIWw2KcGKuTQlUoMyU6lzXTKFxap2ZCgP1DCEfmoeqMzJFyCNR43tST2TXY0A5xVgIgSHtupjI+yLUOAuLRbPl6RJ+4QlmZfxs8+AhhvsFJIlt2QAAYR0DNbwn7gQ4ITqZORjlggp46cTSeqr4p4GD32QE0bDEWykhQMAAOJubPgNMvIGlm0cq/zByiUNk4WWahRBZNipIRO2GHDMLqTfPkmmZLIqoy5NsUCUUW3sKoOwTqNclWm5kmkEZCBgF/RHIcEny1MyrFQ8OgHNADTiMrANVVYCwp8u3ROgAKQOgOFTmd5Zc5kt0SCQAOxlJC7KQ6+sr6zBmRYCTAIZHQ7Car1tZosYZWdECkneR68rRMBL1akK1EsDJdB+XmG9AjlZ81A1oc6ccIRDidf6dDfyvzZPKUTRMwKP1UxDgC5CDdmeVAjFmU9sT//xAAnEAEAAgAEBgMBAQEBAAAAAAABABEhMUFREDBhcYHwIJGhseHRQP/aAAgBAQABPxD5LUZptIbfBFa+Rr2LbxLcFxLN4AE54V2tUEye2LpVgN9LP7xjYpcQzfMVybgmNKCgUAE/EInuFdoeKbZwGe8CVXMTOfJUJZQU6JpB0l/irwIVvjBQOwqFfNQ1L4Cf0ALOlcUgJ/JYz9UT8YAKCB1EEdTjcokGqUN5fMrBVaeBmax/Tj1e/D0u3IsAKZAWyup6uMOASzb8hdze9ZcLfaTXGr9KPD0u3yKDtoxix0JigH3VysfWeEJKRqa+WW+eG9pQb7KAvWWZwv4Pel2+GcuOgZx4bbJmj59WPaJddGFvsjE34qwAZfOleBa9nEhaogR3IKIkxTt8cKeHS/4el24KArKo4avKE3a20Ex5zIOHjAR2zS/o5fMOcfK58LicTcFXOA9LtHSUEJ0S2AzhLJd532kEqDY/9oAAAyDmcprnf14cF+OFx8C5el2mNebUG7LZAGxTqxaS141Odw5HRmFMzDSHc0YtrQdgkaU6Ov7J0dRLFHoQdidNWIfct4bczXH/AODh4FEwAlI2MAtzb3rhF22HpNoYlLNSIAFJRuQRLHiWrJtNyoIg8vmNRf8Anw2qUjLNN+GYpg7koujYnpdoKIjTEcm9o/8AI2e46MD4h+MCAatTMWNEAfX+HM5T6kgsNw89w3uh89LtxwHyIlYHfOir3C4cyozLv65qWGZp+XM4Nv4rvlzNUdrDDTlO/D6Z6Xb4CiIxfxEai1M1P3Qo1anYjHzOB5bE7KhsqIeUyTEy3Zyel24KEbaK9iVVE65wiab1p/yLdgDCcCc74YOcVf4vCtryzDmWE2zxZXbeel2iFC3IINLpZGBoHEvBHCUGj15BGKScBRZwaQIt0gFy1Ukt7jbafq8oibQqmz+Rpuz6Gb8v5wBtr/lOsQZZK9QmLXPPEHqs6+CajCO7wRSZm+IjOCDW4wEpg6QxlJDbCUnKQcIxJiXByoTiTZARdKe/JgABwYKyCxk8/oHDry5mjG7hCzAJUJAdnV5a4U+5T6wvtoy6LADSMoCCgKA44mU0PMvWt35cAQ1EiZ+qE2yPysfLC2KfvHnNv+Iu0/Ap9yOn44tQCjvOEPShu2H2LbS9cxRmgL21JVtFzyPgr2xBQ9ES1iw/uPBLPoE60AgeDjMddBBBQAcwFvkf6RiS1i/UNT6ZZl9fBFVKQ2Z6iR4jKFTvoS9qmmCmg3kdkiVa+E1Q69Ieb9TJpyg78GJm7zm3dkOS56MIVSvOm/bDrqSgCgBwHGmYwz6KnNAXAE3K0IhotdSNS5hcsLawZg2gN4wbpUDFn7lGK3OKsXLbMlW7FYgvSy0gfW0bSxoweYkTdU8y5acUz8yME8/XPIGq4TbDcoNOcLpZ13QjsVHuWzcJRfDHHceXAogAAvoQYh3gsBhEqXKs5Fawd7QSjugZRnJYjEZlRPbEFVSVfL//2Q==" class="foot-logo" alt="Satish Art">
       <div class="foot-name">Satish <span>Art</span></div>
       <p class="foot-desc">Premium election and promotional materials for campaigns across Maharashtra. Trusted since 1991.</p>
     </div>
@@ -512,18 +531,18 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
     <div class="foot-col">
       <h5>Contact</h5>
       <a href="#" onclick="callPhone();return false">📞 +91 94223 24089</a>
-      <a href="#" onclick="sendEmail();return false">📧 satishart123@gmail.com</a>
-      <a href="#" onclick="openWA('Hello Satish Art!');return false">💬 WhatsApp Chat</a>
+      <a href="#" onclick="sendEmail();return false">📧 Email Us</a>
+      <a href="#" onclick="fireConfetti();openWA('Hello Satish Art!');return false">💬 WhatsApp Chat</a>
       <a href="#" onclick="openMap();return false">📍 Get Directions</a>
     </div>
   </div>
-  <div class="footer-btm">© 2025 Satish Art. All rights reserved. | Kedgaon, Pune, Maharashtra</div>
+  <div class="footer-btm">© 2025 Satish Art. All rights reserved. | Swami Samarth Road, Kedgaon Station, Pune 412203</div>
 </footer>
 
 <!-- WA FLOAT -->
-<a class="wa-float" href="#" onclick="openWA('Hello Satish Art! I want to enquire about election materials.');return false" title="Chat on WhatsApp">💬</a>
+<a class="wa-float" href="#" onclick="fireConfetti();openWA('Hello Satish Art! I want to enquire about election materials.');return false" title="Chat on WhatsApp">💬</a>
 
-<!-- ═══ PRODUCT MODAL ═══ -->
+<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
   <div class="modal-box">
     <div class="modal-head">
@@ -542,38 +561,34 @@ body::after{content:'';position:fixed;inset:0;z-index:9997;opacity:.025;pointer-
   </div>
 </div>
 
-<!-- ═══ SCRIPTS ═══ -->
 <script>
-/* ── LOADER ── */
-window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('loader').classList.add('hidden'),2100)});
-
-/* ── THREE.JS PARTICLES ── */
+/* ── CANVAS PARTICLES ── */
 (function(){
   const cv=document.getElementById('bg-canvas');
-  const rdr=new THREE.WebGLRenderer({canvas:cv,alpha:true,antialias:true});
-  rdr.setPixelRatio(Math.min(window.devicePixelRatio,2));
-  rdr.setSize(window.innerWidth,window.innerHeight);
-  const sc=new THREE.Scene();
-  const cam=new THREE.PerspectiveCamera(75,window.innerWidth/window.innerHeight,.1,1000);
-  cam.position.z=5;
-  const N=1800,pos=new Float32Array(N*3),col=new Float32Array(N*3);
-  for(let i=0;i<N;i++){
-    pos[i*3]=(Math.random()-.5)*32; pos[i*3+1]=(Math.random()-.5)*32; pos[i*3+2]=(Math.random()-.5)*20;
-    const r=Math.random();
-    if(r<.45){col[i*3]=1;col[i*3+1]=.42;col[i*3+2]=0}       // orange
-    else if(r<.7){col[i*3]=.95;col[i*3+1]=.75;col[i*3+2]=.24} // gold
-    else if(r<.85){col[i*3]=.1;col[i*3+1]=.8;col[i*3+2]=.1}   // green
-    else{col[i*3]=1;col[i*3+1]=1;col[i*3+2]=1}                 // white
+  const ctx=cv.getContext('2d');
+  let W=window.innerWidth,H=window.innerHeight;
+  cv.width=W;cv.height=H;
+  const C=['rgba(255,107,0,','rgba(242,191,60,','rgba(80,200,80,','rgba(255,255,255,'];
+  const pts=Array.from({length:140},()=>({x:Math.random()*W,y:Math.random()*H,r:Math.random()*2+.5,vx:(Math.random()-.5)*.4,vy:(Math.random()-.5)*.4,col:C[Math.floor(Math.random()*C.length)],o:Math.random()*.5+.15}));
+  let mx=W/2,my=H/2;
+  document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY});
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    pts.forEach(p=>{
+      p.vx+=(mx-p.x)*.000012;p.vy+=(my-p.y)*.000012;
+      p.x+=p.vx;p.y+=p.vy;
+      if(p.x<0)p.x=W;if(p.x>W)p.x=0;if(p.y<0)p.y=H;if(p.y>H)p.y=0;
+      ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+      ctx.fillStyle=p.col+p.o+')';ctx.fill();
+    });
+    for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){
+      const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);
+      if(d<100){ctx.beginPath();ctx.moveTo(pts[i].x,pts[i].y);ctx.lineTo(pts[j].x,pts[j].y);ctx.strokeStyle='rgba(255,107,0,'+(0.07*(1-d/100))+')';ctx.lineWidth=.5;ctx.stroke();}
+    }
+    requestAnimationFrame(draw);
   }
-  const g=new THREE.BufferGeometry();
-  g.setAttribute('position',new THREE.BufferAttribute(pos,3));
-  g.setAttribute('color',new THREE.BufferAttribute(col,3));
-  const pts=new THREE.Points(g,new THREE.PointsMaterial({size:.04,vertexColors:true,transparent:true,opacity:.75,sizeAttenuation:true}));
-  sc.add(pts);
-  let mx=0,my=0;
-  document.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-.5)*.4;my=(e.clientY/window.innerHeight-.5)*.4});
-  (function anim(){requestAnimationFrame(anim);pts.rotation.y+=.0007;pts.rotation.x+=.0003;cam.position.x+=(mx-cam.position.x)*.02;cam.position.y+=(-my-cam.position.y)*.02;rdr.render(sc,cam)})();
-  window.addEventListener('resize',()=>{cam.aspect=window.innerWidth/window.innerHeight;cam.updateProjectionMatrix();rdr.setSize(window.innerWidth,window.innerHeight)});
+  draw();
+  window.addEventListener('resize',()=>{W=window.innerWidth;H=window.innerHeight;cv.width=W;cv.height=H});
 })();
 
 /* ── CUSTOM CURSOR ── */
@@ -586,50 +601,57 @@ document.querySelectorAll('a,button,.prod-card,.afeat,.why-card,.ccard,.wa-ccard
   el.addEventListener('mouseleave',()=>document.body.classList.remove('hovering'));
 });
 
-/* ── NAVBAR SCROLL ── */
+/* ── NAVBAR ── */
 window.addEventListener('scroll',()=>document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>60));
 
-/* ── SMOOTH SCROLL (fixes "goes to Claude" issue) ── */
-function navGo(id){
-  const el=document.getElementById(id);
-  if(el) el.scrollIntoView({behavior:'smooth',block:'start'});
-  document.getElementById('navLinks').classList.remove('open');
+/* ── TYPEWRITER ── */
+const words=['Campaign Caps 🧢','Election Flags 🚩','Custom Sarees 👗','Flex Banners 📋','Branded T-Shirts 👕','Campaign Stickers 🏷️','Mufflers & Badges'];
+let wi=0,ci=0,del=false;
+const tw=document.getElementById('typewriter');
+function typeLoop(){
+  const w=words[wi];
+  if(!del){tw.textContent=w.slice(0,++ci);if(ci===w.length){del=true;setTimeout(typeLoop,1600);return;}}
+  else{tw.textContent=w.slice(0,--ci);if(ci===0){del=false;wi=(wi+1)%words.length;}}
+  setTimeout(typeLoop,del?50:90);
 }
-function scrollTo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth'})}
+setTimeout(typeLoop,800);
 
-/* ── CONTACT ACTIONS (fixes phone/email not working) ── */
-function callPhone(){window.location.href='tel:+919422324089'}
+/* ── CONFETTI ── */
+function fireConfetti(){
+  const colors=['#FF6B00','#F2BF3C','#25D366','#fff','#FF8C38','#ff4444','#4f6ef7'];
+  for(let i=0;i<80;i++){
+    const el=document.createElement('div');
+    el.className='confetti-piece';
+    el.style.cssText='left:'+Math.random()*100+'vw;background:'+colors[Math.floor(Math.random()*colors.length)]+';width:'+(Math.random()*10+5)+'px;height:'+(Math.random()*10+5)+'px;border-radius:'+(Math.random()>0.5?'50%':'2px')+';animation-duration:'+(Math.random()*2+1.5)+'s;animation-delay:'+(Math.random()*.5)+'s';
+    document.body.appendChild(el);
+    setTimeout(()=>el.remove(),3000);
+  }
+}
+
+/* ── CONTACT ── */
+function navGo(id){const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:'smooth',block:'start'});document.getElementById('navLinks').classList.remove('open')}
+function callPhone(){window.location.href='tel:+919422063554'}
 function sendEmail(){window.location.href='mailto:satishart123@gmail.com'}
-function openMap(){window.open('https://www.google.com/maps/search/Swami+Samarth+Nagar+Kedgaon+Station+Daund+Pune+412203','_blank')}
-function openWA(msg){window.open('https://wa.me/919422324089?text='+encodeURIComponent(msg),'_blank')}
+function openMap(){window.open('https://maps.app.goo.gl/nutzpzVy2Wsut7iZ8','_blank')}
+function openWA(msg){window.open('https://wa.me/919422063554?text='+encodeURIComponent(msg),'_blank')}
 
-/* ── 3D TILT CARDS ── */
+/* ── 3D TILT ── */
 const hCard=document.getElementById('heroCard');
 if(hCard){
-  hCard.addEventListener('mousemove',e=>{const r=hCard.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;hCard.style.transform=`perspective(800px) rotateY(${x*18}deg) rotateX(${-y*14}deg) scale(1.02)`});
+  hCard.addEventListener('mousemove',e=>{const r=hCard.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;hCard.style.transform='perspective(800px) rotateY('+(x*18)+'deg) rotateX('+(-y*14)+'deg) scale(1.02)'});
   hCard.addEventListener('mouseleave',()=>hCard.style.transform='');
 }
 document.querySelectorAll('.prod-card').forEach(c=>{
-  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform=`perspective(600px) rotateY(${x*12}deg) rotateX(${-y*10}deg) translateY(-8px)`});
+  c.addEventListener('mousemove',e=>{const r=c.getBoundingClientRect();const x=(e.clientX-r.left)/r.width-.5;const y=(e.clientY-r.top)/r.height-.5;c.style.transform='perspective(600px) rotateY('+(x*12)+'deg) rotateX('+(-y*10)+'deg) translateY(-8px)'});
   c.addEventListener('mouseleave',()=>c.style.transform='');
 });
 
 /* ── SCROLL REVEAL ── */
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*85);obs.unobserve(e.target)}});
-},{threshold:.1});
-document.querySelectorAll('.reveal,.reveal-l,.reveal-r').forEach(el=>obs.observe(el));
+const obs=new IntersectionObserver(entries=>{entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('vis'),i*80);obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal,.reveal-l,.reveal-r,.reveal-scale').forEach(el=>obs.observe(el));
 
 /* ── COUNTERS ── */
-const cobs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){
-    const el=e.target,t=parseInt(el.dataset.c),s=el.dataset.s||'+';
-    if(isNaN(t)){cobs.unobserve(el);return}
-    let st=0;const dur=1800;
-    const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/dur,1);const ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t)+s;if(p<1)requestAnimationFrame(step);else el.textContent=t+s};
-    requestAnimationFrame(step);cobs.unobserve(el);
-  }});
-},{threshold:.5});
+const cobs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){const el=e.target,t=parseInt(el.dataset.c),s=el.dataset.s||'+';if(isNaN(t)){cobs.unobserve(el);return}let st=0;const dur=1800;const step=ts=>{if(!st)st=ts;const p=Math.min((ts-st)/dur,1);const ease=1-Math.pow(1-p,3);el.textContent=Math.floor(ease*t)+s;if(p<1)requestAnimationFrame(step);else el.textContent=t+s};requestAnimationFrame(step);cobs.unobserve(el)}})},{threshold:.5});
 document.querySelectorAll('[data-c]').forEach(el=>cobs.observe(el));
 
 /* ── HAMBURGER ── */
@@ -639,25 +661,24 @@ function toggleMenu(){document.getElementById('navLinks').classList.toggle('open
 const vid=document.querySelector('.video-wrap video');
 if(vid){vid.addEventListener('error',()=>{vid.style.display='none';document.getElementById('videoFb').style.display='flex'})}
 
-/* ── PRODUCTS DATA ── */
+/* ── PRODUCTS ── */
 const PD={
   caps:{icon:'🧢',title:'Campaign Caps',desc:'Custom printed caps with your party logo, slogan, or candidate name. Available in cotton, polyester, and blended fabrics. Suitable for all seasons and ideal for mass distribution at rallies.',specs:[{l:'Material',v:'Cotton / Polyester'},{l:'Min Order',v:'100 pieces'},{l:'Print Type',v:'Screen / Digital'},{l:'Sizes',v:'S, M, L, XL, Free'},{l:'Colors',v:'Any pantone'},{l:'Delivery',v:'7–10 working days'}]},
   stickers:{icon:'🏷️',title:'Campaign Stickers',desc:'Vibrant, weather-resistant stickers in any shape or size. UV-laminated for durability. Perfect for vehicles, walls, gates, and handouts.',specs:[{l:'Material',v:'Vinyl / Paper'},{l:'Min Order',v:'500 pieces'},{l:'Finish',v:'Gloss / Matte'},{l:'Sizes',v:'Custom sizes'},{l:'Waterproof',v:'Yes (vinyl)'},{l:'Delivery',v:'5–7 working days'}]},
-  mufflers:{icon:'🧣',title:'Branded Mufflers',desc:'Comfortable fleece or cotton mufflers with your party colors and logo. A popular item at winter rallies and public gatherings.',specs:[{l:'Material',v:'Fleece / Cotton'},{l:'Min Order',v:'100 pieces'},{l:'Print',v:'Screen printing'},{l:'Length',v:'150cm standard'},{l:'Colors',v:'Custom'},{l:'Delivery',v:'7–12 working days'}]},
+  mufflers:{icon:'🧣',title:'Branded Mufflers',desc:'Comfortable fleece or cotton mufflers with your party colors and logo. A popular item at winter rallies.',specs:[{l:'Material',v:'Fleece / Cotton'},{l:'Min Order',v:'100 pieces'},{l:'Print',v:'Screen printing'},{l:'Length',v:'150cm standard'},{l:'Colors',v:'Custom'},{l:'Delivery',v:'7–12 working days'}]},
   flags:{icon:'🚩',title:'Campaign Flags',desc:'Durable nylon or polyester flags for rallies and processions. Available as handheld, pole-mounted, or car flags. UV-resistant printing.',specs:[{l:'Material',v:'Nylon / Polyester'},{l:'Min Order',v:'200 pieces'},{l:'Print',v:'Dye sublimation'},{l:'Sizes',v:'1ft to 10ft+'},{l:'UV Resistant',v:'Yes'},{l:'Delivery',v:'7–10 working days'}]},
   sarees:{icon:'👗',title:'Custom Sarees',desc:'Custom printed sarees in your party colors. Available in cotton, polyester, and silk blend fabrics. Culturally impactful and widely distributed.',specs:[{l:'Material',v:'Cotton / Polyester'},{l:'Min Order',v:'50 pieces'},{l:'Print',v:'Digital / Block'},{l:'Length',v:'5.5m standard'},{l:'Colors',v:'Custom'},{l:'Delivery',v:'10–15 working days'}]},
   badges:{icon:'📛',title:'Campaign Badges',desc:'Professional ID badges for campaign workers. Metal, plastic clip-on, and fabric pin options with full-color printing.',specs:[{l:'Material',v:'Metal / Plastic'},{l:'Min Order',v:'200 pieces'},{l:'Print',v:'Digital / Offset'},{l:'Sizes',v:'25mm – 75mm'},{l:'Finish',v:'Gloss / Matte'},{l:'Delivery',v:'5–8 working days'}]},
   banners:{icon:'📋',title:'Banners & LD Foam',desc:'Large format flex banners, vinyl banners, and LD foam boards for outdoor and indoor visibility. Custom sizes with grommets.',specs:[{l:'Material',v:'Flex / LD Foam'},{l:'Min Order',v:'1 piece'},{l:'Print',v:'Large format'},{l:'Sizes',v:'Any custom size'},{l:'Finish',v:'Hemmed + eyelets'},{l:'Delivery',v:'3–5 working days'}]},
   tshirts:{icon:'👕',title:'Campaign T-Shirts',desc:'High-quality 100% cotton or dri-fit t-shirts with your party logo, slogan, or candidate photo for volunteers and mass distribution.',specs:[{l:'Material',v:'100% Cotton / Dri-fit'},{l:'Min Order',v:'50 pieces'},{l:'Print',v:'Screen / DTF print'},{l:'Sizes',v:'XS to 5XL'},{l:'Colors',v:'Any color'},{l:'Delivery',v:'7–10 working days'}]}
 };
-
 function openModal(k){
   const p=PD[k];
   document.getElementById('mIcon').textContent=p.icon;
   document.getElementById('mTitle').textContent=p.title;
   document.getElementById('mDesc').textContent=p.desc;
-  document.getElementById('mSpecs').innerHTML=p.specs.map(s=>`<div class="spec-item"><div class="spec-lbl">${s.l}</div><div class="spec-val">${s.v}</div></div>`).join('');
-  document.getElementById('mWA').onclick=()=>openWA(`Hello Satish Art! I am interested in your ${p.title}. Please send me pricing and availability.`);
+  document.getElementById('mSpecs').innerHTML=p.specs.map(s=>'<div class="spec-item"><div class="spec-lbl">'+s.l+'</div><div class="spec-val">'+s.v+'</div></div>').join('');
+  document.getElementById('mWA').onclick=()=>{fireConfetti();openWA('Hello Satish Art! I am interested in your '+p.title+'. Please send me pricing and availability.')};
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow='hidden';
 }
